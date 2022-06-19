@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.HashMap;
 
 public abstract class Panel extends JPanel implements ActionListener {
@@ -16,6 +17,7 @@ public abstract class Panel extends JPanel implements ActionListener {
     public Panel(Color color) {
         setBackground(color);
         this.DELAY = 10; // 100 fps
+        this.screenHash = new HashMap<>();
         timer = new Timer(DELAY, this);
         timer.start();
     }
@@ -26,7 +28,27 @@ public abstract class Panel extends JPanel implements ActionListener {
         timer.start();
     }
     public void registerScreen(BaseScreen screen) {screenHash.put(screen.getId(),screen);}
+    public void setCurrentScreen(String id) throws IOException {
+        if(this.currentScreen!=null) {
+            this.currentScreen.onPause();
+        }
+        BaseScreen s = this.screenHash.get(id);
+        if(s==null) {
+            throw new RuntimeException("ERROR: screen doesn't exist");
+        }
+        else {
+            s.onUnpause();
+            this.currentScreen = s;
+        }
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
+    }
+
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        this.currentScreen.paintComponent(g);
+        repaint();
+        Toolkit.getDefaultToolkit().sync();
     }
 }

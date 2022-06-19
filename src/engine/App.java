@@ -10,6 +10,15 @@ public class App extends JFrame {
     private int width;
     private int height;
 
+    @Override
+    public int getWidth() {
+        return width;
+    }
+    @Override
+    public int getHeight() {
+        return height;
+    }
+
     public static App getInstance() {
         if(instance==null) {
             try {

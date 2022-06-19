@@ -5,9 +5,10 @@ import engine.Panel;
 import engine.exceptions.AppNotInstantiatedException;
 
 import java.awt.*;
+import java.io.IOException;
 
 public class Main {
-    public static void main(String[] args) throws AppNotInstantiatedException {
+    public static void main(String[] args) throws AppNotInstantiatedException, IOException {
         App.instantiate("Demo",600,600,new DemoPanel());
     }
 }
