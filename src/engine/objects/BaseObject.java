@@ -1,8 +1,6 @@
 package engine.objects;
 
-import engine.App;
 import engine.drawHandlers.DrawHandler;
-import engine.drawHandlers.RectDraw;
 import engine.screens.Screen;
 
 import java.awt.*;
@@ -18,6 +16,8 @@ public abstract class BaseObject {
     private double y2;
     private double width;
     private double height;
+    private boolean fixedPos = false;
+    private double angle = 0;
     private boolean sizeChangeFlag = false;
     private DrawHandler drawHandler;
     public BaseObject(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2) throws IOException {
@@ -26,6 +26,7 @@ public abstract class BaseObject {
     public void init(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2) throws IOException {
         this.screen = screen;
         this.drawHandler = drawHandler;
+        screen.addObject(this);
         this.setPos(x1,y1,x2,y2);
     }
     public double getX() {return x;}
@@ -36,6 +37,7 @@ public abstract class BaseObject {
     public double getY2() {return y2;}
     public double getWidth() {return width;}
     public double getHeight() {return height;}
+    public double getAngle() {return angle;}
     public void setX(double x) {
         this.x = x;
         this.x1 = x - this.getWidth()/2;
@@ -82,6 +84,7 @@ public abstract class BaseObject {
         this.y2 = this.y + this.getHeight()/2;
         this.sizeChangeFlag = true;
     }
+    public void setAngle(double angle) {this.angle = angle;}
     public void setPos(double x1, double y1, double x2, double y2) {
         this.setX1(x1);
         this.setY1(y1);

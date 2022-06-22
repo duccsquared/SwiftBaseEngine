@@ -43,8 +43,14 @@ public abstract class Panel extends JPanel implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
+        if(!App.isInstantiated()) {return;}
+        App.getInstance().actionPerformedStart();
+        this.currentScreen.actionPerformed(e);
+        this.currentScreen.tick();
+        this.tick(e);
+        App.getInstance().actionPerformedEnd();
     }
-
+    public abstract void tick(ActionEvent e);
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         this.currentScreen.paintComponent(g);
