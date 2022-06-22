@@ -11,13 +11,12 @@ public class App extends JFrame {
     private int height;
 
     @Override
-    public int getWidth() {
-        return width;
-    }
+    public int getWidth() {return width;}
     @Override
     public int getHeight() {
         return height;
     }
+    public Panel getPanel() {return panel;}
 
     public static App getInstance() {
         if(instance==null) {

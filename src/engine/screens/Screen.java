@@ -2,15 +2,18 @@ package engine.screens;
 
 import engine.Camera;
 import engine.Panel;
+import engine.objects.BaseObject;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public abstract class Screen {
     private String id;
     private Camera camera;
     private boolean isInitialized = false;
+    protected ArrayList<BaseObject> objectArray = new ArrayList<BaseObject>();
     public String getId() {return id;}
     public void setId(String id) {this.id = id;}
     public Screen(String id) {
@@ -29,5 +32,7 @@ public abstract class Screen {
     public abstract void actionPerformed(ActionEvent e);
     public abstract void tick();
     public abstract void paintComponent(Graphics g);
-
+    public void addObject(BaseObject object) {
+        objectArray.add(object);
+    }
 }
