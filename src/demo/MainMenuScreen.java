@@ -16,10 +16,13 @@ public class MainMenuScreen extends BaseScreen {
     private Sprite x;
     public MainMenuScreen(String id) throws IOException {
         super(id);
-        new Sprite(this,100,100,200,200);
-        new Sprite(this,new Color(0,0,128),new Color(0,0,168),400,500,550,550);
+        Sprite a = new Sprite(this,100,100,200,200);
+        Sprite b = new Sprite(this,new Color(0,0,128),new Color(0,0,168),400,500,550,550);
         x = new Sprite(this,50,128,50,70,168,70,0,0,20,20);
-        new Sprite(this,128,128,50,168,168,70,579,579,599,599);
+        Sprite c = new Sprite(this,128,128,50,168,168,70,579,579,599,599);
+        this.attachObject(x);
+        c.setFixedPos(true);
+
     }
 
     @Override

@@ -30,8 +30,8 @@ public class RectDraw extends DrawHandler {
 
     @Override
     public void paint(Graphics2D g2d, BaseObject object) {
-        int x = (int) object.getX1();
-        int y = (int) object.getY1();
+        int x = (int) object.getAbsX1();
+        int y = (int) object.getAbsY1();
         int width = (int) object.getWidth();
         int height = (int) object.getHeight();
         g2d.setColor(colour);

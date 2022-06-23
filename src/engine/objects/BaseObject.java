@@ -29,6 +29,7 @@ public abstract class BaseObject {
         screen.addObject(this);
         this.setPos(x1,y1,x2,y2);
     }
+    public boolean isFixedPos() {return fixedPos;}
     public double getX() {return x;}
     public double getY() {return y;}
     public double getX1() {return x1;}
@@ -38,6 +39,15 @@ public abstract class BaseObject {
     public double getWidth() {return width;}
     public double getHeight() {return height;}
     public double getAngle() {return angle;}
+    public double getAbsX1() {
+        if(fixedPos) {return this.getX1();}
+        else {return this.getX1() - screen.windowX();}
+    }
+    public double getAbsY1() {
+        if(fixedPos) {return this.getY1();}
+        else {return this.getY1() - screen.windowY();}
+    }
+    public void setFixedPos(boolean fixedPos) {this.fixedPos = fixedPos;}
     public void setX(double x) {
         this.x = x;
         this.x1 = x - this.getWidth()/2;

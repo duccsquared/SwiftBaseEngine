@@ -1,6 +1,7 @@
 package engine;
 
 import engine.exceptions.AppNotInstantiatedException;
+import engine.exceptions.ExceptionThrower;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -24,12 +25,7 @@ public class App extends JFrame {
 
     public static App getInstance() {
         if(instance==null) {
-            try {
-                throw new AppNotInstantiatedException(); // run instantiate() first
-            } catch (AppNotInstantiatedException e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
+            ExceptionThrower.throwException(new AppNotInstantiatedException());
         }
         return instance;
     }

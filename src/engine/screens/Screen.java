@@ -1,7 +1,6 @@
 package engine.screens;
 
-import engine.Camera;
-import engine.Panel;
+import engine.camera.Camera;
 import engine.objects.BaseObject;
 
 import java.awt.*;
@@ -31,8 +30,17 @@ public abstract class Screen {
     };
     public abstract void actionPerformed(ActionEvent e);
     public abstract void tick();
-    public abstract void paintComponent(Graphics g);
+    public void paintComponent(Graphics g) {
+        camera.updateCameraPos();
+    }
     public void addObject(BaseObject object) {
         objectArray.add(object);
     }
+    public void attachObject(BaseObject object) {
+        camera.attachObject(object);
+    }
+    public double windowX() {return camera.x();}
+    public double windowY() {return camera.y();}
+
+
 }
