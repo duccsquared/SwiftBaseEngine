@@ -2,6 +2,7 @@ package demo;
 
 import engine.App;
 import engine.drawHandlers.RectDraw;
+import engine.io.Key;
 import engine.objects.BaseObject;
 import engine.objects.Sprite;
 import engine.screens.BaseScreen;
@@ -23,16 +24,16 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void tick() {
-        if(App.getInstance().held("W")) {
+        if(Key.held("W")) {
             x.moveY(-5);
         }
-        if(App.getInstance().held("A")) {
+        if(Key.held("A")) {
             x.moveX(-5);
         }
-        if(App.getInstance().held("S")) {
+        if(Key.held("S")) {
             x.moveY(5);
         }
-        if(App.getInstance().held("D")) {
+        if(Key.held("D")) {
             x.moveX(5);
         }
     }
