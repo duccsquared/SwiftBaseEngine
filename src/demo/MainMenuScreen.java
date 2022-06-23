@@ -39,5 +39,11 @@ public class MainMenuScreen extends BaseScreen {
         if(Key.held("D")) {
             x.moveX(5);
         }
+        if(Key.pressed("P")) {
+            this.panTo(-300,-300);
+        }
+        if(Key.pressed("Q")) {
+            this.panTo(0,0);
+        }
     }
 }

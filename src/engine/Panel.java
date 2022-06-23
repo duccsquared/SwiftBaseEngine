@@ -47,6 +47,7 @@ public abstract class Panel extends JPanel implements ActionListener {
         App.getInstance().actionPerformedStart();
         this.currentScreen.actionPerformed(e);
         this.currentScreen.tick();
+        this.currentScreen.secondTick();
         this.tick(e);
         App.getInstance().actionPerformedEnd();
     }

@@ -21,7 +21,6 @@ public abstract class BaseScreen extends Screen {
 
     @Override
     public void paintComponent(Graphics g) {
-        super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         for(BaseObject object : objectArray) {
             object.paint(g2d);
