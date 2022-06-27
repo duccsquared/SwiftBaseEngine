@@ -10,14 +10,14 @@ public class Transition {
     private double totalTicks;
     private double currentTicks;
     private Tween tween;
-    public Transition(double x1, double y1, double x2, double y2, double ticks, Tween tween) {
+    public Transition(double x1, double y1, double x2, double y2, Tween tween) {
         this.x1 = x1;
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
         this.x = x1;
         this.y = y1;
-        this.totalTicks = ticks;
+        this.totalTicks = tween.getSteps();
         this.currentTicks = 0;
         this.tween = tween;
     }

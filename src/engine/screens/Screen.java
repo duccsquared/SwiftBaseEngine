@@ -32,19 +32,13 @@ public abstract class Screen {
     public abstract void tick();
     public void secondTick() {
         camera.updateCameraPos();
-
     }
     public abstract void paintComponent(Graphics g);
     public void addObject(BaseObject object) {
         objectArray.add(object);
     }
-    public void attachObject(BaseObject object) {
-        camera.attachObject(object);
-    }
+    public Camera getCamera() {return camera;}
     public double windowX() {return camera.x();}
     public double windowY() {return camera.y();}
-    public void panTo(double x, double y) {
-        camera.panTo(x,y);
-    }
 
 }

@@ -16,6 +16,14 @@ public class ObjectAttacher {
         relX = object.getX1() - camera.x();
         relY = object.getY1() - camera.y();
     }
+    protected ObjectAttacher(BaseObject object, double relX, double relY) {
+        if(object.isFixedPos()) {
+            ExceptionThrower.throwException(new CantAttachCameraToFixedObjectException());
+        }
+        this.object = object;
+        relX = this.relX;
+        relY = this.relY;
+    }
     public double x() {
         return object.getX1() + relX;
     }

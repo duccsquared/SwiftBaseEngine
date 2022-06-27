@@ -1,7 +1,9 @@
 package engine.camera;
 
+import engine.camera.transitions.BezierEase;
 import engine.camera.transitions.CubicBezier;
 import engine.camera.transitions.Transition;
+import engine.camera.transitions.Tween;
 import engine.objects.BaseObject;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -16,11 +18,17 @@ public class Camera {
     public void setY(double y) {this.y = y;}
     public void attachObject(BaseObject object) {
         this.objectAttacher = new ObjectAttacher(this,object);
+        transition = null;
     }
-    public void panTo(double x, double y) {
+    public void attachObject(BaseObject object, double relX, double relY) {
+        this.objectAttacher = new ObjectAttacher(object,relX,relY);
+        transition = new Transition(this.x,this.y,objectAttacher.x(),objectAttacher.y(),new BezierEase(100));
+    }
+    public void panTo(double x, double y, Tween tween) {
         objectAttacher = null;
-        transition = new Transition(this.x,this.y,x,y,100,new CubicBezier(100,.25,.1,.25,1));
+        transition = new Transition(this.x,this.y,x,y,tween);
     }
+    public void panTo(double x, double y) {panTo(x,y,new BezierEase(100));}
     public void updateCameraPos() {
         if(objectAttacher!=null) {
             this.x = objectAttacher.x();
