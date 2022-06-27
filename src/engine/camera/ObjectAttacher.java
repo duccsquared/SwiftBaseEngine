@@ -8,26 +8,43 @@ public class ObjectAttacher {
     private BaseObject object;
     private double relX;
     private double relY;
+    private boolean centered = false;
     protected ObjectAttacher(Camera camera, BaseObject object) {
-        if(object.isFixedPos()) {
-            ExceptionThrower.throwException(new CantAttachCameraToFixedObjectException());
-        }
         this.object = object;
-        relX = object.getX1() - camera.x();
-        relY = object.getY1() - camera.y();
+        this.init(object,camera.x() - objectX(),camera.y() - objectY(),true);
+    }
+    protected ObjectAttacher(Camera camera, BaseObject object, boolean centered) {
+        this.object = object;
+        this.centered = centered;
+        this.init(object,camera.x() - objectX(),camera.y() - objectY(),centered);
     }
     protected ObjectAttacher(BaseObject object, double relX, double relY) {
+        this.init(object,relX,relY,true);
+    }
+    protected ObjectAttacher(BaseObject object, double relX, double relY, boolean centered) {
+        this.init(object,relX,relY,centered);
+    }
+    private void init(BaseObject object, double relX, double relY,boolean centered) {
         if(object.isFixedPos()) {
             ExceptionThrower.throwException(new CantAttachCameraToFixedObjectException());
         }
+        this.centered = centered;
         this.object = object;
-        relX = this.relX;
-        relY = this.relY;
+        this.relX = relX;
+        this.relY = relY;
+    }
+    private double objectX() {
+        if(this.centered) {return object.getX();}
+        else {return object.getX1();}
+    }
+    private double objectY() {
+        if(this.centered) {return object.getY();}
+        else {return object.getY1();}
     }
     public double x() {
-        return object.getX1() + relX;
+        return objectX() + relX;
     }
     public double y() {
-        return object.getY1() + relY;
+        return objectY() + relY;
     }
 }

@@ -20,6 +20,10 @@ public class Camera {
         this.objectAttacher = new ObjectAttacher(this,object);
         transition = null;
     }
+    public void attachObject(BaseObject object, boolean centered) {
+        this.objectAttacher = new ObjectAttacher(this,object,centered);
+        transition = null;
+    }
     public void attachObject(BaseObject object, double relX, double relY) {
         this.objectAttacher = new ObjectAttacher(object,relX,relY);
         transition = new Transition(this.x,this.y,objectAttacher.x(),objectAttacher.y(),new BezierEase(100));

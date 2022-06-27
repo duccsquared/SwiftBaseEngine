@@ -19,7 +19,7 @@ public class MainMenuScreen extends BaseScreen {
         super(id);
         Sprite a = new Sprite(this,100,100,200,200);
         Sprite b = new Sprite(this,new Color(0,0,128),new Color(0,0,168),400,500,550,550);
-        x = new Sprite(this,50,128,50,70,168,70,0,0,20,20);
+        x = new Sprite(this,"src/demo/fireball.png",280,280,320,320);
         Sprite c = new Sprite(this,128,128,50,168,168,70,579,579,599,599);
         this.getCamera().attachObject(x);
         c.setFixedPos(true);
@@ -28,6 +28,7 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void tick() {
+        x.setAngle(x.getAngle()+1);
         if(Key.held("W")) {
             x.moveY(-5);
         }
@@ -40,11 +41,17 @@ public class MainMenuScreen extends BaseScreen {
         if(Key.held("D")) {
             x.moveX(5);
         }
-        if(Key.pressed("P")) {
+        if(Key.pressed("O")) {
             this.getCamera().panTo(-300,-300);
         }
-        if(Key.pressed("Q")) {
+        if(Key.pressed("P")) {
             this.getCamera().panTo(0,0);
+        }
+        if(Key.held("Q")) {
+            x.setSize(x.getWidth()-1,x.getHeight()-1);
+        }
+        if(Key.held("E")) {
+            x.setSize(x.getWidth()+1,x.getHeight()+1);
         }
     }
 }
