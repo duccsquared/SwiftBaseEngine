@@ -9,6 +9,10 @@ import java.io.IOException;
 public class DemoPanel extends Panel {
     public DemoPanel() throws IOException {
         super(Color.darkGray);
+    }
+
+    @Override
+    public void start() throws IOException {
         this.registerScreen(new MainMenuScreen("mainMenu"));
         this.setCurrentScreen("mainMenu");
     }

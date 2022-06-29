@@ -8,7 +8,7 @@ public class ObjectAttacher {
     private BaseObject object;
     private double relX;
     private double relY;
-    private boolean centered = false;
+    private boolean centered = true;
     protected ObjectAttacher(Camera camera, BaseObject object) {
         this.object = object;
         this.init(object,camera.x() - objectX(),camera.y() - objectY(),true);

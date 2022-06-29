@@ -6,6 +6,7 @@ import engine.exceptions.ExceptionThrower;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.HashSet;
 
 public class App extends JFrame {
@@ -32,8 +33,9 @@ public class App extends JFrame {
     public static boolean isInstantiated() {
         return instance != null;
     }
-    public static void instantiate(String title, int width, int height, Panel panel) {
+    public static void instantiate(String title, int width, int height, Panel panel) throws IOException {
         instance = new App(title,width,height,panel);
+        panel.start();
     }
     private App(String title, int width, int height, Panel panel) {
         super(title);

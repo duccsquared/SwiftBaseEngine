@@ -27,6 +27,7 @@ public abstract class Panel extends JPanel implements ActionListener {
         timer = new Timer(DELAY, this);
         timer.start();
     }
+    public abstract void start() throws IOException;
     public void registerScreen(BaseScreen screen) {screenHash.put(screen.getId(),screen);}
     public void setCurrentScreen(String id) throws IOException {
         if(this.currentScreen!=null) {
@@ -44,6 +45,7 @@ public abstract class Panel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(!App.isInstantiated()) {return;}
+        if(currentScreen==null){return;}
         App.getInstance().actionPerformedStart();
         this.currentScreen.actionPerformed(e);
         this.currentScreen.tick();
@@ -54,7 +56,9 @@ public abstract class Panel extends JPanel implements ActionListener {
     public abstract void tick(ActionEvent e);
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        this.currentScreen.paintComponent(g);
+        if(currentScreen!=null) {
+            this.currentScreen.paintComponent(g);
+        }
         repaint();
         Toolkit.getDefaultToolkit().sync();
     }

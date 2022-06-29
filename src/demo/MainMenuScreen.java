@@ -3,9 +3,11 @@ package demo;
 import engine.App;
 import engine.camera.transitions.BezierEaseInOut;
 import engine.drawHandlers.RectDraw;
+import engine.drawHandlers.TextDraw;
 import engine.io.Key;
 import engine.objects.BaseObject;
 import engine.objects.Sprite;
+import engine.objects.Text;
 import engine.screens.BaseScreen;
 import engine.screens.Screen;
 
@@ -21,6 +23,8 @@ public class MainMenuScreen extends BaseScreen {
         Sprite b = new Sprite(this,new Color(0,0,128),new Color(0,0,168),400,500,550,550);
         x = new Sprite(this,"src/demo/fireball.png",280,280,320,320);
         Sprite c = new Sprite(this,128,128,50,168,168,70,579,579,599,599);
+        Text.newInstance(this,"-------------------||T||-------------------",300,20,30,0,1);
+        Text.newInstance(this,"Welcome!",300,400,"Power Green",Font.PLAIN,20,0,255,0,0,0,false);
         this.getCamera().attachObject(x);
         c.setFixedPos(true);
 
