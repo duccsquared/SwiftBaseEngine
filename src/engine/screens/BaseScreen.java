@@ -5,6 +5,7 @@ import engine.objects.BaseObject;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 
 public abstract class BaseScreen extends Screen {
     public BaseScreen(String id) {

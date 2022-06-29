@@ -14,6 +14,7 @@ public class DemoPanel extends Panel {
     @Override
     public void start() throws IOException {
         this.registerScreen(new MainMenuScreen("mainMenu"));
+        this.registerScreen(new GameScreen("game"));
         this.setCurrentScreen("mainMenu");
     }
 

@@ -1,5 +1,6 @@
 package demo;
 
+import engine.App;
 import engine.objects.Button;
 import engine.screens.Screen;
 
@@ -13,6 +14,12 @@ public class PlayGameButton extends Button {
 
     @Override
     public void onClick() {
+        try {
+            App.getInstance().getPanel().setCurrentScreen("game");
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
         System.out.println("button pressed");
     }
 }
