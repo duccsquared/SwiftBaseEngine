@@ -10,6 +10,9 @@ import java.awt.geom.Rectangle2D;
 import java.io.IOException;
 
 public class Text extends BaseObject {
+    public static final int TOP = -1; public static final int BOTTOM = 1;
+    public static final int CENTER = 0;
+    public static final int LEFT = -1; public static final int RIGHT = 1;
     private static Color defaultColor = new Color(255,255,255);
     private static String defaultFontStr = "Power Green";
     private Color color;
@@ -20,7 +23,7 @@ public class Text extends BaseObject {
         super(screen, drawHandler, x1, y1, x2, y2);
     }
     public static Text newInstance(Screen screen, String string, double x1, double y1, int fontSize) throws IOException {
-        return init(screen,string,x1,y1,defaultFontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),TextDraw.CENTER,TextDraw.CENTER,false);
+        return init(screen,string,x1,y1,defaultFontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),Text.CENTER,Text.CENTER,false);
     }
     public static Text newInstance(Screen screen, String string, double x1, double y1, int fontSize, int hAlign, int vAlign) throws IOException {
         return init(screen,string,x1,y1,defaultFontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),hAlign,vAlign,false);
@@ -32,23 +35,23 @@ public class Text extends BaseObject {
         Font font = new Font(fontStr,fontStyle,fontSize);
         double[] coords = getCoordsFromFontSize(font,string,x1,y1);
         double width = coords[2] - coords[0]; double height = coords[3] - coords[1];
-        if(hAlign==TextDraw.CENTER) {
+        if(hAlign==Text.CENTER) {
             coords[2] -= width/2;
             coords[0] -= width/2;
         }
-        if(hAlign==TextDraw.RIGHT) {
+        if(hAlign==Text.RIGHT) {
             coords[2] -= width;
             coords[0] -= width;
         }
-        if(vAlign==TextDraw.CENTER) {
+        if(vAlign==Text.CENTER) {
             coords[3] -= height/2;
             coords[1] -= height/2;
         }
-        if(vAlign==TextDraw.BOTTOM) {
+        if(vAlign==Text.BOTTOM) {
             coords[3] -= height;
             coords[1] -= height;
         }
-        Text text = new Text(screen, new TextDraw(hAlign,vAlign),coords[0],coords[1],coords[2],coords[3]);
+        Text text = new Text(screen, new TextDraw(),coords[0],coords[1],coords[2],coords[3]);
         text.setFixedPos(fixedPos);
         text.coordsFixed = true;
         text.string = string;
