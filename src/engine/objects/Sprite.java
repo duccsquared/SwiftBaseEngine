@@ -23,13 +23,4 @@ public class Sprite extends BaseObject{
         super(screen, new ImageDraw(imgPath,x2-x1,y2-y1), x1, y1, x2, y2);
     }
 
-    @Override
-    public boolean tickMouse() {
-        // TEMPORARY
-        if(Mouse.leftClicked()) {
-            System.out.println(this.getX()+" "+this.getY());
-            return true;
-        }
-        return super.tickMouse();
-    }
 }

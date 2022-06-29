@@ -30,7 +30,7 @@ public class MainMenuScreen extends BaseScreen {
         Text.newInstance(this,"This is the main menu",200,420,400,440,"Power Green",Font.PLAIN,0,255,0,false);
         this.getCamera().attachObject(x);
         c.setFixedPos(true);
-
+        new PlayGameButton(this,260,560,340,580);
     }
 
     @Override

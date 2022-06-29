@@ -14,6 +14,7 @@ public abstract class Panel extends JPanel implements ActionListener {
     private final int DELAY;
     private BaseScreen currentScreen;
     private HashMap<String, BaseScreen> screenHash;
+    private Cursor currentCursor = new Cursor(Cursor.DEFAULT_CURSOR);
     public Panel(Color color) {
         setBackground(color);
         this.DELAY = 10; // 100 fps
@@ -27,6 +28,9 @@ public abstract class Panel extends JPanel implements ActionListener {
         timer = new Timer(DELAY, this);
         timer.start();
     }
+    public Cursor getCurrentCursor() {return currentCursor;}
+    public void setCurrentCursor(Cursor currentCursor) {this.currentCursor = currentCursor;}
+
     public abstract void start() throws IOException;
     public void registerScreen(BaseScreen screen) {screenHash.put(screen.getId(),screen);}
     public void setCurrentScreen(String id) throws IOException {
@@ -47,11 +51,15 @@ public abstract class Panel extends JPanel implements ActionListener {
         if(!App.isInstantiated()) {return;}
         if(currentScreen==null){return;}
         App.getInstance().actionPerformedStart();
+        this.setCurrentCursor(new Cursor(Cursor.DEFAULT_CURSOR));
         this.currentScreen.actionPerformed(e);
         this.currentScreen.tick();
         this.currentScreen.secondTick();
         this.tick(e);
         App.getInstance().actionPerformedEnd();
+        if(!this.getCursor().equals(this.getCurrentCursor())) {
+            this.setCursor(this.getCurrentCursor());
+        }
     }
     public abstract void tick(ActionEvent e);
     public void paintComponent(Graphics g) {
