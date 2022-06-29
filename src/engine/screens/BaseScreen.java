@@ -16,8 +16,18 @@ public abstract class BaseScreen extends Screen {
         for(BaseObject object : objectArray) {
             object.tick();
         }
+        this.handleMouseClick();
     }
-
+    private void handleMouseClick() {
+        boolean handled = false;
+        for(int i = objectArray.size()-1; i > 0; i--) {
+            BaseObject object = objectArray.get(i);
+            if(object.intersectsAbs(App.getInstance().getMousePosX(),App.getInstance().getMousePosY())) {
+                handled = object.tickMouse();
+            }
+            if(handled) {return;}
+        }
+    }
 
     @Override
     public void paintComponent(Graphics g) {

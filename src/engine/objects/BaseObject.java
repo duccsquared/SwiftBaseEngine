@@ -47,6 +47,14 @@ public abstract class BaseObject {
         if(fixedPos) {return this.getY1();}
         else {return this.getY1() - screen.windowY();}
     }
+    public double getAbsX2() {
+        if(fixedPos) {return this.getX2();}
+        else {return this.getX2() - screen.windowX();}
+    }
+    public double getAbsY2() {
+        if(fixedPos) {return this.getY2();}
+        else {return this.getY2() - screen.windowY();}
+    }
     public void setFixedPos(boolean fixedPos) {this.fixedPos = fixedPos;}
     public void setX(double x) {
         this.x = x;
@@ -119,8 +127,17 @@ public abstract class BaseObject {
         this.setWidth(width);
         this.setHeight(height);
     }
+    public boolean intersects(double x, double y) {
+        return x >= this.getX1() && y >= this.getY1() && x <= this.getX2() && y <= this.getY2();
+    }
+    public boolean intersectsAbs(double x, double y) {
+        return x >= this.getAbsX1() && y >= this.getAbsY1() && x <= this.getAbsX2() && y <= this.getAbsY2();
+    }
     public void tick() {
 
+    }
+    public boolean tickMouse() {
+        return false;
     }
     public void paint(Graphics2D g2d) {
         drawHandler.paint(g2d,this);

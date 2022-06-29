@@ -3,6 +3,7 @@ package engine.objects;
 import engine.drawHandlers.DrawHandler;
 import engine.drawHandlers.ImageDraw;
 import engine.drawHandlers.RectDraw;
+import engine.io.Mouse;
 import engine.screens.Screen;
 import java.awt.*;
 
@@ -20,5 +21,15 @@ public class Sprite extends BaseObject{
     }
     public Sprite(Screen screen, String imgPath, double x1, double y1, double x2, double y2) throws IOException {
         super(screen, new ImageDraw(imgPath,x2-x1,y2-y1), x1, y1, x2, y2);
+    }
+
+    @Override
+    public boolean tickMouse() {
+        // TEMPORARY
+        if(Mouse.leftClicked()) {
+            System.out.println(this.getX()+" "+this.getY());
+            return true;
+        }
+        return super.tickMouse();
     }
 }

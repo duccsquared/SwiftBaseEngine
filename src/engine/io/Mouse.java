@@ -15,4 +15,6 @@ public class Mouse {
     public static boolean rightClicked() {return Mouse.clicked(3);}
     public static boolean rightHeld() {return Mouse.held(3);}
     public static boolean rightDoubleClicked() {return Mouse.doubleClicked(3);}
+    public static double mousePosX() {return App.getInstance().getMousePosX();}
+    public static double mousePosY() {return App.getInstance().getMousePosY();}
 }
