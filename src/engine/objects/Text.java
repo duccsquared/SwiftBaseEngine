@@ -22,41 +22,60 @@ public class Text extends BaseObject {
     private Text(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2) throws IOException {
         super(screen, drawHandler, x1, y1, x2, y2);
     }
-    public static Text newInstance(Screen screen, String string, double x1, double y1, int fontSize) throws IOException {
-        return init(screen,string,x1,y1,defaultFontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),Text.CENTER,Text.CENTER,false);
+    public static Text newInstance(Screen screen, String string, double x, double y, int fontSize) throws IOException {
+        return init(screen,string,x,y,defaultFontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),Text.CENTER,Text.CENTER,true);
     }
-    public static Text newInstance(Screen screen, String string, double x1, double y1, int fontSize, int hAlign, int vAlign) throws IOException {
-        return init(screen,string,x1,y1,defaultFontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),hAlign,vAlign,false);
+    public static Text newInstance(Screen screen, String string, double x, double y, int fontSize, int hAlign, int vAlign) throws IOException {
+        return init(screen,string,x,y,defaultFontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),hAlign,vAlign,true);
     }
-    public static Text newInstance(Screen screen, String string, double x1, double y1, String fontStr, int fontStyle, int fontSize, int r, int g, int b, int hAlign, int vAlign, boolean fixedPos) throws IOException {
-        return init(screen,string,x1,y1,fontStr, fontStyle,fontSize,r,g,b,hAlign,vAlign,fixedPos);
+    public static Text newInstance(Screen screen, String string, double x, double y, String fontStr, int fontSize) throws IOException {
+        return init(screen,string,x,y,fontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),Text.CENTER,Text.CENTER,true);
     }
-    public static Text init(Screen screen, String string, double x1, double y1, String fontStr, int fontStyle, int fontSize, int r, int g, int b, int hAlign, int vAlign, boolean fixedPos) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x, double y, int fontSize, int r, int g, int b) throws IOException {
+        return init(screen,string,x,y,defaultFontStr, Font.PLAIN,fontSize,r,g,b,Text.CENTER,Text.CENTER,false);
+    }
+    public static Text newInstance(Screen screen, String string, double x, double y, String fontStr, int fontStyle, int fontSize, int r, int g, int b, int hAlign, int vAlign, boolean fixedPos) throws IOException {
+        return init(screen,string,x,y,fontStr, fontStyle,fontSize,r,g,b,hAlign,vAlign,fixedPos);
+    }
+    public static Text init(Screen screen, String string, double x, double y, String fontStr, int fontStyle, int fontSize, int r, int g, int b, int hAlign, int vAlign, boolean fixedPos) throws IOException {
         Font font = new Font(fontStr,fontStyle,fontSize);
-        double[] coords = getCoordsFromFontSize(font,string,x1,y1);
+        double[] coords = getCoordsFromFontSize(font,string,x,y);
         double width = coords[2] - coords[0]; double height = coords[3] - coords[1];
-        if(hAlign==Text.CENTER) {
-            coords[2] -= width/2;
-            coords[0] -= width/2;
-        }
-        if(hAlign==Text.RIGHT) {
-            coords[2] -= width;
-            coords[0] -= width;
-        }
-        if(vAlign==Text.CENTER) {
-            coords[3] -= height/2;
-            coords[1] -= height/2;
-        }
-        if(vAlign==Text.BOTTOM) {
-            coords[3] -= height;
-            coords[1] -= height;
-        }
+        if(hAlign==Text.CENTER) {coords[2] -= width/2; coords[0] -= width/2;}
+        if(hAlign==Text.RIGHT) {coords[2] -= width; coords[0] -= width;}
+        if(vAlign==Text.CENTER) {coords[3] -= height/2; coords[1] -= height/2;}
+        if(vAlign==Text.BOTTOM) {coords[3] -= height; coords[1] -= height;}
         Text text = new Text(screen, new TextDraw(),coords[0],coords[1],coords[2],coords[3]);
         text.setFixedPos(fixedPos);
         text.coordsFixed = true;
         text.string = string;
         text.font = font;
         text.color = new Color(r,g,b);
+        return text;
+    }
+    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2) throws IOException {
+        return init(screen,string,x1,y1, x2, y2,defaultFontStr, Font.PLAIN,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),true);
+    }
+    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, String fontStr) throws IOException {
+        return init(screen,string,x1,y1, x2, y2,fontStr, Font.PLAIN,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),true);
+    }
+    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, int fontStyle) throws IOException {
+        return init(screen,string,x1,y1, x2, y2,defaultFontStr, fontStyle,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),true);
+    }
+    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, int r, int g, int b) throws IOException {
+        return init(screen,string,x1,y1, x2, y2,defaultFontStr,Font.PLAIN,r,g,b,true);
+    }
+    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, String fontStr, int fontStyle, int r, int g, int b, boolean fixedPos) throws IOException {
+        return init(screen,string,x1,y1, x2, y2,fontStr, fontStyle,r,g,b,fixedPos);
+    }
+    public static Text init(Screen screen, String string, double x1, double y1, double x2, double y2, String fontStr, int fontStyle, int r, int g, int b, boolean fixedPos) throws IOException {
+        Text text = new Text(screen, new TextDraw(),x1,y1,x2,y2);
+        text.setFixedPos(fixedPos);
+        text.coordsFixed = true;
+        text.string = string;
+        text.font = new Font(fontStr,fontStyle,20);
+        text.color = new Color(r,g,b);
+        text.updateFontSizeFromCoords();
         return text;
     }
     public Color getColor() {return color;}
@@ -78,5 +97,73 @@ public class Text extends BaseObject {
         Graphics g = App.getInstance().getPanel().getGraphics();
         Rectangle2D r = g.getFontMetrics(font).getStringBounds(string,g);
         return new double[] {x1,y1,x1+r.getWidth(),y1-r.getY()};
+    }
+    public double[] getCoordsFromFontSize() {
+        return this.getCoordsFromFontSize(this.getFont(),this.getString(),this.getX1(),this.getY1());
+    }
+    public void updateCoordsFromFontSize() {
+        double[] coords = this.getCoordsFromFontSize();
+        this.setPos(coords[0],coords[1],coords[2],coords[3]);
+    }
+    public int getFontSizeFromCoords() {
+        double x1 = this.getX1(); double y1 = this.getY1();
+        double x2 = this.getX2(); double y2 = this.getY2();
+        double width = this.getWidth(); double height = this.getHeight();
+        this.coordsFixed = false;
+        double approxSize = 30;
+        final double MARGIN = 0.1;
+        double errorRatio = 1 + MARGIN*2;
+        int attempts = 0;
+        while(Math.abs(1-errorRatio)>(MARGIN/10.0)*(10+attempts) || errorRatio>1) {
+            this.setFontSize((int) approxSize);
+            double approxWidth = this.getX2() - this.getX1();
+            errorRatio = width/approxWidth;
+            approxSize *= errorRatio;
+            attempts += 1;
+        }
+        final int SIZE1 = (int)approxSize-5; final int SIZE2 = (int)approxSize+5;
+        this.setFontSize(SIZE1);
+        double width1 = this.getX2() - this.getX1();
+        double height1 = this.getY2() - this.getY1();
+        this.setFontSize(SIZE2);
+        double width2 = this.getX2() - this.getX1();
+        double height2 = this.getY2() - this.getY1();
+        double mW = (SIZE2 - SIZE1)/(width2 - width1);
+        double mH = (SIZE2 - SIZE1)/(height2 - height1);
+        double cW = SIZE1 - mW*width1;
+        double cH = SIZE1 - mH*height1;
+        this.coordsFixed = true;
+        this.setPos(x1,y1,x2,y2);
+        double fontSizeW = mW * this.getWidth() + cW;
+        double fontSizeH = mH * this.getHeight() + cH;
+        int result = (int) Math.min(fontSizeW,fontSizeH);
+        return result;
+    }
+    public void updateFontSizeFromCoords() {
+        int fontSize = getFontSizeFromCoords();
+        this.font = this.getFont().deriveFont((float)fontSize);
+    }
+    public void setFontSize(int fontSize) {
+        this.setFont(this.getFont().deriveFont((float)fontSize));
+    }
+    public void changeFontSize(int fontSize) {
+        this.setFontSize(this.getFont().getSize()+fontSize);
+    }
+    public void setFontStr(String fontStr) {
+        this.setFont(new Font(fontStr,this.getFont().getStyle(),this.getFont().getSize()));
+    }
+    public void setFontStyle(int fontStyle) {
+        this.setFont(this.getFont().deriveFont(fontStyle));
+    }
+    public void setColor(Color color) {this.color = color;}
+    public void setFont(Font font) {
+        this.font = font;
+        if(coordsFixed) {this.updateFontSizeFromCoords();}
+        else {this.updateCoordsFromFontSize();}
+    }
+    public void setString(String string) {
+        this.string = string;
+        if(coordsFixed) {this.updateFontSizeFromCoords();}
+        else {this.updateCoordsFromFontSize();}
     }
 }
