@@ -4,8 +4,11 @@ import engine.exceptions.AppNotInstantiatedException;
 import engine.exceptions.ExceptionThrower;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.IOException;
 import java.util.HashSet;
 
@@ -15,6 +18,9 @@ public class App extends JFrame {
     private int width;
     private int height;
     private KListener kListener;
+    private MListener mListener;
+    private double mousePosX;
+    private double mousePosY;
 
     @Override
     public int getWidth() {return width;}
@@ -23,6 +29,8 @@ public class App extends JFrame {
         return height;
     }
     public Panel getPanel() {return panel;}
+    public double getMousePosX() {return mousePosX;}
+    public double getMousePosY() {return mousePosY;}
 
     public static App getInstance() {
         if(instance==null) {
@@ -46,6 +54,8 @@ public class App extends JFrame {
         // listeners
         this.kListener = new KListener();
         this.addKeyListener(kListener);
+        this.mListener = new MListener(this);
+        this.addMouseListener(mListener);
         // JFrame functions
         this.setFocusable(true);
         this.setResizable(false);
@@ -54,13 +64,20 @@ public class App extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     public void actionPerformedStart() {
-
+        Point p = MouseInfo.getPointerInfo().getLocation();
+        SwingUtilities.convertPointFromScreen(p, this);
+        this.mousePosX = p.getX()-8;
+        this.mousePosY = p.getY()-31;
     }
     public void actionPerformedEnd() {
         this.kListener.tick();
+        this.mListener.tick();
     }
     public boolean held(String key) {return this.kListener.held(key);}
     public boolean pressed(String key) {return this.kListener.pressed(key);}
+    public boolean clicked(int button) {return this.mListener.clicked(button);}
+    public boolean held(int button) {return this.mListener.held(button);}
+    public boolean doubleClicked(int button) {return this.mListener.doubleClicked(button);}
 
     class KListener implements KeyListener {
         private HashSet<String> heldSet = new HashSet<String>();
@@ -88,5 +105,47 @@ public class App extends JFrame {
         public void tick() {
             pressedSet.clear();
         }
+    }
+    class MListener implements MouseListener {
+        private boolean mouseIn;
+        private HashSet<Integer> heldSet = new HashSet<Integer>();
+        private HashSet<Integer> clickedSet = new HashSet<Integer>();
+        private HashSet<Integer> doubleClickedSet = new HashSet<Integer>();
+        public MListener(App app) {
+            Point p = MouseInfo.getPointerInfo().getLocation();
+            SwingUtilities.convertPointFromScreen(p, app);
+            int x = (int) p.getX()-8;
+            int y = (int) p.getY()-31;
+            int width = app.getWidth();
+            int height = app.getHeight();
+            this.mouseIn = x>0 && y > 0 && x < width && y < height;
+        }
+
+        @Override
+        public void mouseClicked(MouseEvent e) {}
+        @Override
+        public void mousePressed(MouseEvent e) {
+            if(!this.heldSet.contains(e.getButton())) {
+                this.clickedSet.add(e.getButton());
+                if(e.getClickCount()==2) {
+                    this.doubleClickedSet.add(e.getButton());
+                }
+            }
+            this.heldSet.add(e.getButton());
+        }
+        @Override
+        public void mouseReleased(MouseEvent e) {this.heldSet.remove(e.getButton());}
+        @Override
+        public void mouseEntered(MouseEvent e) {this.mouseIn = true;}
+        @Override
+        public void mouseExited(MouseEvent e) {this.mouseIn = false;}
+        public void tick() {
+            this.clickedSet.clear();
+            this.doubleClickedSet.clear();
+        }
+        private boolean clicked(int button) {return clickedSet.contains(button);}
+        private boolean held(int button) {return heldSet.contains(button);}
+        private boolean doubleClicked(int button) {return doubleClickedSet.contains(button);}
+
     }
 }

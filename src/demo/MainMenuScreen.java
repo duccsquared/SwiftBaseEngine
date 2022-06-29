@@ -5,6 +5,7 @@ import engine.camera.transitions.BezierEaseInOut;
 import engine.drawHandlers.RectDraw;
 import engine.drawHandlers.TextDraw;
 import engine.io.Key;
+import engine.io.Mouse;
 import engine.objects.BaseObject;
 import engine.objects.Sprite;
 import engine.objects.Text;
@@ -34,6 +35,9 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void tick() {
+        if(Mouse.leftClicked()) {
+            x.setAngle(0);
+        }
         x.setAngle(x.getAngle()+1);
         if(Key.held("W")) {
             x.moveY(-5);
