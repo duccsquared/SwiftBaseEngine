@@ -1,10 +1,14 @@
 package engine.objects;
 
+import demo.Obstacle;
+import engine.ObjectInstanceManager;
 import engine.drawHandlers.DrawHandler;
+import engine.screens.BaseScreen;
 import engine.screens.Screen;
 
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public abstract class BaseObject {
     private Screen screen;
@@ -30,6 +34,7 @@ public abstract class BaseObject {
         this.setPos(x1,y1,x2,y2);
     }
     public boolean isFixedPos() {return fixedPos;}
+    public Screen getScreen() {return screen;}
     public double getX() {return x;}
     public double getY() {return y;}
     public double getX1() {return x1;}
@@ -133,9 +138,34 @@ public abstract class BaseObject {
     public boolean intersectsAbs(double x, double y) {
         return x >= this.getAbsX1() && y >= this.getAbsY1() && x <= this.getAbsX2() && y <= this.getAbsY2();
     }
-    public void tick() {
-
+    public boolean intersects(BaseObject baseObject) {
+        return this.getX1() < baseObject.getX2() &&
+                this.getX2() > baseObject.getX1() &&
+                this.getY1() < baseObject.getY2() &&
+                this.getY2() > baseObject.getY1();
     }
+    public void resolveCollisionsX(Class<? extends BaseObject> cls, double dirX) {
+        ArrayList<BaseObject> objectArray = ObjectInstanceManager.getInstance().getArrayList(cls,this.getScreen());
+        for(BaseObject object: objectArray) {
+            while(this.intersects(object)) {
+                if(dirX==0){break;}
+                this.moveX(Math.signum(dirX));
+            }
+        }
+    }
+    public void resolveCollisionsY(Class<? extends BaseObject> cls, double dirY) {
+        ArrayList<BaseObject> objectArray = ObjectInstanceManager.getInstance().getArrayList(cls,this.getScreen());
+        for(BaseObject object: objectArray) {
+            while(this.intersects(object)) {
+                if(dirY==0){break;}
+                this.moveY(Math.signum(dirY));
+            }
+        }
+    }
+    public void delete() {
+        this.screen.removeObject(this);
+    }
+    public  abstract void tick();
     public boolean tickMouse() {
         return false;
     }

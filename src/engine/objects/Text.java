@@ -168,4 +168,8 @@ public class Text extends BaseObject {
         if(coordsFixed) {this.updateFontSizeFromCoords();}
         else {this.updateCoordsFromFontSize();}
     }
+
+    @Override
+    public void tick() {
+    }
 }

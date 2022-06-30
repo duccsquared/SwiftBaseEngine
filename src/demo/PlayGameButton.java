@@ -22,4 +22,8 @@ public class PlayGameButton extends Button {
         }
         System.out.println("button pressed");
     }
+
+    @Override
+    public void tick() {
+    }
 }

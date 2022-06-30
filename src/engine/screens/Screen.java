@@ -37,6 +37,9 @@ public abstract class Screen {
     public void addObject(BaseObject object) {
         objectArray.add(object);
     }
+    public void removeObject(BaseObject object) {
+        objectArray.remove(object);
+    }
     public Camera getCamera() {return camera;}
     public double windowX() {return camera.x();}
     public double windowY() {return camera.y();}
