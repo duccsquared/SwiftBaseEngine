@@ -146,21 +146,25 @@ public abstract class BaseObject {
     }
     public void resolveCollisionsX(Class<? extends BaseObject> cls, double dirX) {
         ArrayList<BaseObject> objectArray = ObjectInstanceManager.getInstance().getArrayList(cls,this.getScreen());
+        if(dirX==0){return;}
         for(BaseObject object: objectArray) {
             while(this.intersects(object)) {
-                if(dirX==0){break;}
                 this.moveX(Math.signum(dirX));
             }
         }
     }
     public void resolveCollisionsY(Class<? extends BaseObject> cls, double dirY) {
         ArrayList<BaseObject> objectArray = ObjectInstanceManager.getInstance().getArrayList(cls,this.getScreen());
+        if(dirY==0){return;}
         for(BaseObject object: objectArray) {
             while(this.intersects(object)) {
-                if(dirY==0){break;}
                 this.moveY(Math.signum(dirY));
             }
         }
+    }
+    public void resolveCollisions(Class<? extends BaseObject> cls, double dirX, double dirY) {
+        resolveCollisionsX(cls,dirX);
+        resolveCollisionsY(cls,dirY);
     }
     public void delete() {
         this.screen.removeObject(this);
