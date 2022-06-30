@@ -81,6 +81,8 @@ public class Text extends BaseObject {
     public Color getColor() {return color;}
     public Font getFont() {return font;}
     public String getString() {return string;}
+    public boolean isCoordsFixed() {return coordsFixed;}
+
     // string width/height
     public int getStringWidth() {
         Graphics g = App.getInstance().getPanel().getGraphics();

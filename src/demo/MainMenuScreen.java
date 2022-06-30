@@ -23,7 +23,7 @@ public class MainMenuScreen extends BaseScreen {
         Text.newInstance(this,"Welcome!",300,400,"Power Green",Font.PLAIN,20,0,255,0,0,0,false);
         Text.newInstance(this,"-------------------||T||-------------------",20,550,580,590);
         Text.newInstance(this,"This is the main menu",200,420,400,440,"Power Green",Font.PLAIN,0,255,0,false);
-        new PlayGameButton(this,260,500,340,520);
+        new PlayGameButton(this,240,450,360,510);
     }
 
     @Override
