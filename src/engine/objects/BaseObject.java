@@ -1,10 +1,12 @@
 package engine.objects;
 
 import demo.Obstacle;
+import engine.AABB;
 import engine.ObjectInstanceManager;
 import engine.drawHandlers.DrawHandler;
 import engine.screens.BaseScreen;
 import engine.screens.Screen;
+import engine.screens.SubScreen;
 
 import java.awt.*;
 import java.io.IOException;
@@ -12,17 +14,9 @@ import java.util.ArrayList;
 
 public abstract class BaseObject {
     private Screen screen;
-    private double x;
-    private double y;
-    private double x1;
-    private double x2;
-    private double y1;
-    private double y2;
-    private double width;
-    private double height;
+    AABB aabb;
     private boolean fixedPos = false;
     private double angle = 0;
-    private boolean sizeChangeFlag = false;
     private DrawHandler drawHandler;
     public BaseObject(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2) throws IOException {
         this.init(screen,drawHandler,x1,y1,x2,y2);
@@ -31,82 +25,53 @@ public abstract class BaseObject {
         this.screen = screen;
         this.drawHandler = drawHandler;
         screen.addObject(this);
+        this.aabb = new AABB();
         this.setPos(x1,y1,x2,y2);
     }
     public boolean isFixedPos() {return fixedPos;}
     public Screen getScreen() {return screen;}
-    public double getX() {return x;}
-    public double getY() {return y;}
-    public double getX1() {return x1;}
-    public double getY1() {return y1;}
-    public double getX2() {return x2;}
-    public double getY2() {return y2;}
-    public double getWidth() {return width;}
-    public double getHeight() {return height;}
+    public double getX() {return aabb.getX();}
+    public double getY() {return aabb.getY();}
+    public double getX1() {return aabb.getX1();}
+    public double getY1() {return aabb.getY1();}
+    public double getX2() {return aabb.getX2();}
+    public double getY2() {return aabb.getY2();}
+    public double getWidth() {return aabb.getWidth();}
+    public double getHeight() {return aabb.getHeight();}
     public double getAngle() {return angle;}
     public double getAbsX1() {
-        if(fixedPos) {return this.getX1();}
-        else {return this.getX1() - screen.windowX();}
+        double x1;
+        if(fixedPos) {x1 = this.getX1();}
+        else {x1 = this.getX1() - screen.windowX();}
+        if(screen instanceof SubScreen) {
+            x1 += ((SubScreen) screen).getX1();
+        }
+        return x1;
     }
     public double getAbsY1() {
-        if(fixedPos) {return this.getY1();}
-        else {return this.getY1() - screen.windowY();}
+        double y1;
+        if(fixedPos) {y1 = this.getY1();}
+        else {y1 = this.getY1() - screen.windowY();}
+        if(screen instanceof SubScreen) {
+            y1 += ((SubScreen) screen).getY1();
+        }
+        return y1;
     }
     public double getAbsX2() {
-        if(fixedPos) {return this.getX2();}
-        else {return this.getX2() - screen.windowX();}
+        return getAbsX1() + this.getWidth();
     }
     public double getAbsY2() {
-        if(fixedPos) {return this.getY2();}
-        else {return this.getY2() - screen.windowY();}
+        return getAbsY1() + this.getHeight();
     }
     public void setFixedPos(boolean fixedPos) {this.fixedPos = fixedPos;}
-    public void setX(double x) {
-        this.x = x;
-        this.x1 = x - this.getWidth()/2;
-        this.x2 = x + this.getWidth()/2;
-    }
-    public void setY(double y) {
-        this.y = y;
-        this.y1 = y - this.getHeight()/2;
-        this.y2 = y + this.getHeight()/2;
-    }
-    public void setX1(double x1) {
-        this.x1 = x1;
-        this.width = this.x2 - this.x1;
-        this.x = (this.x1 + this.x2)/2;
-        this.sizeChangeFlag = true;
-    }
-    public void setX2(double x2) {
-        this.x2 = x2;
-        this.width = this.x2 - this.x1;
-        this.x = (this.x1 + this.x2)/2;
-        this.sizeChangeFlag = true;
-    }
-    public void setY1(double y1) {
-        this.y1 = y1;
-        this.height = this.y2 - this.y1;
-        this.y = (this.y1 + this.y2)/2;
-        this.sizeChangeFlag = true;
-    }
-    public void setY2(double y2) {
-        this.y2 = y2;
-        this.height = this.y2 - this.y1;
-        this.y = (this.y1 + this.y2)/2;
-        this.sizeChangeFlag = true;
-    }
-    public void setWidth(double width) {
-        this.width = width;
-        this.x1 = this.x - this.getWidth()/2;
-        this.x2 = this.x + this.getWidth()/2;
-        this.sizeChangeFlag = true;
-    }
-    public void setHeight(double height) {
-        this.height = height;
-        this.y1 = this.y - this.getHeight()/2;
-        this.y2 = this.y + this.getHeight()/2;
-        this.sizeChangeFlag = true;
-    }
+    public void setX(double x) {aabb.setX(x);}
+    public void setY(double y) {aabb.setY(y);}
+    public void setX1(double x1) {aabb.setX1(x1);}
+    public void setX2(double x2) {aabb.setX2(x2);}
+    public void setY1(double y1) {aabb.setY1(y1);}
+    public void setY2(double y2) {aabb.setY2(y2);}
+    public void setWidth(double width) {aabb.setWidth(width);}
+    public void setHeight(double height) {aabb.setHeight(height);}
     public void setAngle(double angle) {this.angle = angle;}
     public void setPos(double x1, double y1, double x2, double y2) {
         this.setX1(x1);

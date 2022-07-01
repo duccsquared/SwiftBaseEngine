@@ -1,5 +1,6 @@
 package engine.screens;
 
+import engine.App;
 import engine.camera.Camera;
 import engine.objects.BaseObject;
 
@@ -14,6 +15,9 @@ public abstract class Screen {
     private boolean isInitialized = false;
     protected ArrayList<BaseObject> objectArray = new ArrayList<BaseObject>();
     public String getId() {return id;}
+
+    protected ArrayList<BaseObject> getObjectArray() {return objectArray;}
+
     public void setId(String id) {this.id = id;}
     public Screen(String id) {
         this.setId(id);
@@ -33,7 +37,23 @@ public abstract class Screen {
     public void secondTick() {
         camera.updateCameraPos();
     }
-    public abstract void paintComponent(Graphics g);
+    protected boolean handleMouseClick() {
+        boolean handled = false;
+        for(int i = objectArray.size()-1; i >= 0; i--) {
+            BaseObject object = objectArray.get(i);
+            if(object.intersectsAbs(App.getInstance().getMousePosX(),App.getInstance().getMousePosY())) {
+                handled = object.tickMouse();
+            }
+            if(handled) {return true;}
+        }
+        return false;
+    }
+    public void paintComponent(Graphics g) {
+        Graphics2D g2d = (Graphics2D) g;
+        for(BaseObject object : objectArray) {
+            object.paint(g2d);
+        }
+    };
     public void addObject(BaseObject object) {
         objectArray.add(object);
     }

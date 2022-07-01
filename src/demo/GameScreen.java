@@ -26,10 +26,12 @@ public class GameScreen extends BaseScreen {
         player = new Player(this,280,280,320,320);
         System.out.println(((Sprite) player).getClass());
         this.getCamera().attachObject(player);
+        this.addSubScreen(new GameButtonsSubScreen(this));
     }
 
     @Override
     public void tick() {
+        super.tick();
         if(Key.pressed("O")) {
             this.getCamera().panTo(-300,-300);
         }

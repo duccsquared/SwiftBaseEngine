@@ -13,6 +13,9 @@ public abstract class Sprite extends BaseObject{
     public Sprite(Screen screen, double x1, double y1, double x2, double y2) throws IOException {
         super(screen, new RectDraw(), x1, y1, x2, y2);
     }
+    public Sprite(Screen screen, DrawHandler drawHandler,double x1, double y1, double x2, double y2) throws IOException {
+        super(screen, drawHandler, x1, y1, x2, y2);
+    }
     public Sprite(Screen screen, Color color, Color borderColor, double x1, double y1, double x2, double y2) throws IOException {
         super(screen, new RectDraw(color,borderColor), x1, y1, x2, y2);
     }

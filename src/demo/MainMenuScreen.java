@@ -26,5 +26,6 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void tick() {
+        super.tick();
     }
 }
