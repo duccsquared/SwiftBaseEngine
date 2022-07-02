@@ -114,6 +114,7 @@ public abstract class BaseObject {
         if(dirX==0){return;}
         for(BaseObject object: objectArray) {
             while(this.intersects(object)) {
+                if(object.equals(this)) {break;}
                 this.moveX(Math.signum(dirX));
             }
         }
@@ -123,6 +124,7 @@ public abstract class BaseObject {
         if(dirY==0){return;}
         for(BaseObject object: objectArray) {
             while(this.intersects(object)) {
+                if(object.equals(this)) {break;}
                 this.moveY(Math.signum(dirY));
             }
         }
