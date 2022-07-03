@@ -1,6 +1,6 @@
 package engine.drawHandlers;
 
-import engine.App;
+import engine.skeleton.App;
 import engine.objects.BaseObject;
 
 import javax.swing.*;

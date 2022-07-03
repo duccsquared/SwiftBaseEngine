@@ -1,11 +1,9 @@
 package engine.camera;
 
-import engine.camera.transitions.BezierEase;
-import engine.camera.transitions.CubicBezier;
+import engine.camera.transitions.beziers.BezierEase;
 import engine.camera.transitions.Transition;
 import engine.camera.transitions.Tween;
 import engine.objects.BaseObject;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 public class Camera {
     private double x = 0;

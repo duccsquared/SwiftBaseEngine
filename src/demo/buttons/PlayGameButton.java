@@ -1,10 +1,8 @@
-package demo;
+package demo.buttons;
 
-import engine.App;
+import engine.skeleton.App;
 import engine.objects.Button;
 import engine.screens.Screen;
-
-import java.io.IOException;
 
 public class PlayGameButton extends Button {
     public PlayGameButton(Screen screen, double x1, double y1, double x2, double y2) {

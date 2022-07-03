@@ -1,16 +1,11 @@
 package engine.screens;
 
-import engine.AABB;
-import engine.drawHandlers.DrawHandler;
 import engine.drawHandlers.EmptyDraw;
-import engine.io.Mouse;
-import engine.objects.BaseObject;
+import engine.utils.Mouse;
 import engine.objects.ConcreteSprite;
 import engine.objects.Sprite;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 
 public abstract class SubScreen extends Screen {
     private Sprite bgSprite;

@@ -1,4 +1,4 @@
-package engine;
+package engine.objects;
 
 public class AABB {
     private double x;

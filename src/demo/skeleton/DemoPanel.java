@@ -1,10 +1,9 @@
-package demo;
+package demo.skeleton;
 
-import engine.Panel;
+import engine.skeleton.Panel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 
 public class DemoPanel extends Panel {
     public DemoPanel(){

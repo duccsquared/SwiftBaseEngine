@@ -1,12 +1,10 @@
-package demo;
+package demo.buttons;
 
+import demo.Global;
+import demo.objects.Enemy;
 import engine.objects.Button;
 import engine.objects.Tooltip;
 import engine.screens.Screen;
-import engine.screens.SubScreen;
-
-import java.io.IOException;
-import java.util.Random;
 
 public class AddEnemyButton extends Button {
     public AddEnemyButton(Screen screen,double x1, double y1, double x2, double y2)  {

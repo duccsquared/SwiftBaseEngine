@@ -1,14 +1,10 @@
-package demo;
+package demo.skeleton;
 
-import engine.ObjectInstanceManager;
-import engine.io.Key;
-import engine.io.Mouse;
-import engine.objects.BaseObject;
-import engine.objects.Sprite;
+import demo.objects.Obstacle;
+import demo.objects.player.Player;
+import engine.managers.ObjectInstanceManager;
+import engine.utils.Key;
 import engine.screens.BaseScreen;
-
-import java.awt.*;
-import java.io.IOException;
 
 public class GameScreen extends BaseScreen {
     private Player player;

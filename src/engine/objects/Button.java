@@ -1,11 +1,9 @@
 package engine.objects;
 
-import engine.App;
-import engine.io.Mouse;
+import engine.utils.Mouse;
 import engine.screens.Screen;
 
 import java.awt.*;
-import java.io.IOException;
 
 public abstract class Button extends Sprite {
     private Text text = null;

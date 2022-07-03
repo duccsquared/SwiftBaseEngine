@@ -1,13 +1,12 @@
 package engine.objects;
 
-import engine.App;
+import engine.skeleton.App;
 import engine.drawHandlers.DrawHandler;
 import engine.drawHandlers.TextDraw;
 import engine.screens.Screen;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.io.IOException;
 
 public class Text extends BaseObject {
     public static final int TOP = -1; public static final int BOTTOM = 1;

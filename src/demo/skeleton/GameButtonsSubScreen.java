@@ -1,9 +1,8 @@
-package demo;
+package demo.skeleton;
 
+import demo.buttons.AddEnemyButton;
 import engine.screens.BaseScreen;
 import engine.screens.SubScreen;
-
-import java.io.IOException;
 
 public class GameButtonsSubScreen extends SubScreen {
     public GameButtonsSubScreen(BaseScreen screen)  {

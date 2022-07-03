@@ -3,11 +3,8 @@ package engine.objects;
 import engine.drawHandlers.DrawHandler;
 import engine.drawHandlers.ImageDraw;
 import engine.drawHandlers.RectDraw;
-import engine.io.Mouse;
 import engine.screens.Screen;
 import java.awt.*;
-
-import java.io.IOException;
 
 public abstract class Sprite extends BaseObject{
     public Sprite(Screen screen, double x1, double y1, double x2, double y2) {

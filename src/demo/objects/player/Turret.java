@@ -1,6 +1,7 @@
-package demo;
+package demo.objects.player;
 
-import engine.io.Mouse;
+import demo.Global;
+import engine.utils.Mouse;
 import engine.objects.Sprite;
 import engine.screens.Screen;
 

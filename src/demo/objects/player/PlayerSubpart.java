@@ -1,10 +1,7 @@
-package demo;
+package demo.objects.player;
 
 import engine.objects.Sprite;
 import engine.screens.Screen;
-
-import java.awt.*;
-import java.io.IOException;
 
 public class PlayerSubpart extends Sprite {
     public PlayerSubpart(Screen screen, Player player, double x, double y, double angle) {

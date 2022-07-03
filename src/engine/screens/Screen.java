@@ -1,16 +1,12 @@
 package engine.screens;
 
-import engine.App;
-import engine.DragManager;
+import engine.skeleton.App;
+import engine.managers.DragManager;
 import engine.camera.Camera;
-import engine.drawHandlers.EmptyDraw;
-import engine.io.Mouse;
 import engine.objects.BaseObject;
-import engine.objects.ConcreteSprite;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class Screen {

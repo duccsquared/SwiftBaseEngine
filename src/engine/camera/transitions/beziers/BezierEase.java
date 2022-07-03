@@ -1,4 +1,4 @@
-package engine.camera.transitions;
+package engine.camera.transitions.beziers;
 
 public class BezierEase extends CubicBezier {
     public BezierEase(int steps) {

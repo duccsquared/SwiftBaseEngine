@@ -1,4 +1,4 @@
-package engine;
+package engine.skeleton;
 
 import engine.exceptions.AppNotInstantiatedException;
 import engine.exceptions.ExceptionThrower;
@@ -9,7 +9,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 import java.util.HashSet;
 
 public class App extends JFrame {

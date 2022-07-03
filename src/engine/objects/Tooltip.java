@@ -2,10 +2,8 @@ package engine.objects;
 
 import com.sun.javaws.exceptions.InvalidArgumentException;
 import engine.exceptions.ExceptionThrower;
-import engine.io.Mouse;
+import engine.utils.Mouse;
 import engine.screens.Screen;
-
-import javax.tools.Tool;
 
 public class Tooltip extends Sprite {
     public static final int UP = 0;

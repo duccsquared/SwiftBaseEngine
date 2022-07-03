@@ -1,20 +1,8 @@
-package demo;
+package demo.skeleton;
 
-import engine.App;
-import engine.camera.transitions.BezierEaseInOut;
-import engine.drawHandlers.RectDraw;
-import engine.drawHandlers.TextDraw;
-import engine.io.Key;
-import engine.io.Mouse;
-import engine.objects.BaseObject;
-import engine.objects.Sprite;
+import demo.buttons.PlayGameButton;
 import engine.objects.Text;
 import engine.screens.BaseScreen;
-import engine.screens.Screen;
-
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.io.IOException;
 
 public class MainMenuScreen extends BaseScreen {
     public MainMenuScreen(String id) {

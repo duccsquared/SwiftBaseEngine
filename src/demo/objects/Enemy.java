@@ -1,11 +1,9 @@
-package demo;
+package demo.objects;
 
-import engine.ObjectInstanceManager;
+import demo.Global;
+import engine.managers.ObjectInstanceManager;
 import engine.objects.Sprite;
 import engine.screens.Screen;
-
-import java.io.IOException;
-import java.util.Random;
 
 public class Enemy extends Sprite {
     double speedX = 0;

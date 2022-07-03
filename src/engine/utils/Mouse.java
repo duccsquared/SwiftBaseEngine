@@ -1,6 +1,6 @@
-package engine.io;
+package engine.utils;
 
-import engine.App;
+import engine.skeleton.App;
 
 import java.awt.*;
 

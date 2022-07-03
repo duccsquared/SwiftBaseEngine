@@ -1,6 +1,6 @@
-package demo;
+package demo.objects;
 
-import engine.ObjectInstanceManager;
+import engine.managers.ObjectInstanceManager;
 import engine.objects.Sprite;
 import engine.screens.Screen;
 

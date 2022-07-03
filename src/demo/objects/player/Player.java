@@ -1,16 +1,11 @@
-package demo;
+package demo.objects.player;
 
-import engine.App;
-import engine.ObjectInstanceManager;
-import engine.io.Key;
-import engine.io.Mouse;
-import engine.objects.BaseObject;
+import demo.objects.Bullet;
+import demo.objects.Obstacle;
+import engine.utils.Key;
+import engine.utils.Mouse;
 import engine.objects.Sprite;
 import engine.screens.Screen;
-
-import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class Player extends Sprite {
     private int cooldown = 20;

@@ -1,6 +1,6 @@
-package engine;
+package engine.managers;
 
-import engine.io.Mouse;
+import engine.utils.Mouse;
 import engine.objects.BaseObject;
 
 public class DragManager {

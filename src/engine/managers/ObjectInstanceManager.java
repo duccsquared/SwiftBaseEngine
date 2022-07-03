@@ -1,12 +1,10 @@
-package engine;
+package engine.managers;
 
-import demo.Obstacle;
 import engine.objects.BaseObject;
 import engine.screens.Screen;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.Callable;
 
 public class ObjectInstanceManager {
     private HashMap<Class<? extends BaseObject>, ArrayList<BaseObject>> data = new HashMap<>();

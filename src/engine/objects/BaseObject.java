@@ -1,18 +1,13 @@
 package engine.objects;
 
-import demo.AddEnemyButton;
-import demo.Obstacle;
-import engine.AABB;
-import engine.BaseGlobal;
-import engine.ObjectInstanceManager;
+import engine.utils.BaseGlobal;
+import engine.managers.ObjectInstanceManager;
 import engine.drawHandlers.DrawHandler;
-import engine.io.Mouse;
-import engine.screens.BaseScreen;
+import engine.utils.Mouse;
 import engine.screens.Screen;
 import engine.screens.SubScreen;
 
 import java.awt.*;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public abstract class BaseObject {

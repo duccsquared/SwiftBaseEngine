@@ -1,4 +1,6 @@
-package engine.camera.transitions;
+package engine.camera.transitions.beziers;
+
+import engine.camera.transitions.Tween;
 
 import java.util.LinkedList;
 import java.util.Queue;
