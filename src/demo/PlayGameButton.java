@@ -20,10 +20,6 @@ public class PlayGameButton extends Button {
         catch(Exception e) {
             e.printStackTrace();
         }
-        System.out.println("button pressed");
     }
 
-    @Override
-    public void tick() {
-    }
 }

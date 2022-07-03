@@ -103,9 +103,6 @@ public class App extends JFrame {
             return pressedSet.contains(key);
         }
         public void tick() {
-            if(pressedSet.size()>0) {
-                System.out.println(pressedSet);
-            }
             pressedSet.clear();
         }
     }
