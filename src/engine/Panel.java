@@ -33,6 +33,7 @@ public abstract class Panel extends JPanel implements ActionListener {
 
     public abstract void start();
     public void registerScreen(BaseScreen screen) {screenHash.put(screen.getId(),screen);}
+    public BaseScreen getCurrentScreen() {return currentScreen;}
     public void setCurrentScreen(String id) {
         if(this.currentScreen!=null) {
             this.currentScreen.onPause();

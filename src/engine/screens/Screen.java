@@ -47,7 +47,8 @@ public abstract class Screen {
         for(SubScreen subScreen: subScreenArray) {subScreen.onUnpause();}
     };
     public void actionPerformed(ActionEvent e) {
-        for(BaseObject object : objectArray) {
+        ArrayList<BaseObject> tempObjectArray = (ArrayList<BaseObject>) objectArray.clone();
+        for(BaseObject object : tempObjectArray) {
             object.tick();
         }
         for(SubScreen subScreen: subScreenArray) {subScreen.tick();}
@@ -73,8 +74,10 @@ public abstract class Screen {
             }
             if(handled) {return true;}
         }
-        return false;
+        return onUnhandledMouseClick();
     }
+    // do something if no other entity handles the mouse
+    public boolean onUnhandledMouseClick() {return false;}
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         for(BaseObject object : objectArray) {

@@ -22,6 +22,8 @@ public class Mouse {
     public static boolean rightDoubleClicked() {return Mouse.doubleClicked(Mouse.RIGHT);}
     public static double mousePosX() {return App.getInstance().getMousePosX();}
     public static double mousePosY() {return App.getInstance().getMousePosY();}
+    public static double relMousePosX() {return App.getInstance().getPanel().getCurrentScreen().windowX() + App.getInstance().getMousePosX();}
+    public static double relMousePosY() {return App.getInstance().getPanel().getCurrentScreen().windowY() + App.getInstance().getMousePosY();}
     public static void setCurrentCursor(int cursorType) {
         App.getInstance().getPanel().setCurrentCursor(new Cursor(cursorType));
     }

@@ -158,7 +158,7 @@ public abstract class BaseObject {
             this.getScreen().removeObject(this);
         }
         else {
-            if(this.parent.hasChild(this)) {
+            if(this.parent.hasChild(this) && !this.parent.equals(parent)) {
                 this.parent.removeChild(this);
             }
         }
@@ -174,13 +174,13 @@ public abstract class BaseObject {
     }
     public void addChild(BaseObject child) {
         this.childList.add(child);
-        if(!child.parent().equals(this)) {
+        if(parent==null || !child.parent().equals(this)) {
             child.setParent(this);
         }
     }
     public void removeChild(BaseObject child) {
         this.childList.remove(child);
-        if(!child.parent().equals(null)) {
+        if(child.parent() != null) {
             child.setParent(null);
         }
     }
@@ -189,7 +189,7 @@ public abstract class BaseObject {
     }
     public boolean intersects(double x, double y) {
         return x >= this.getX1() && y >= this.getY1() && x <= this.getX2() && y <= this.getY2();
-    }
+}
     public boolean intersectsAbs(double x, double y) {
         return x >= this.getAbsX1() && y >= this.getAbsY1() && x <= this.getAbsX2() && y <= this.getAbsY2();
     }
@@ -198,6 +198,15 @@ public abstract class BaseObject {
                 this.getX2() > baseObject.getX1() &&
                 this.getY1() < baseObject.getY2() &&
                 this.getY2() > baseObject.getY1();
+    }
+    public BaseObject findIntersecting(Class<? extends BaseObject> cls) {
+        ArrayList<BaseObject> objectArray = ObjectInstanceManager.getInstance().getArrayList(cls,this.getScreen());
+        for(BaseObject object: objectArray) {
+            if(this.intersects(object)) {
+                return object;
+            }
+        }
+        return null;
     }
     public void resolveCollisionsX(Class<? extends BaseObject> cls, double dirX) {
         ArrayList<BaseObject> objectArray = ObjectInstanceManager.getInstance().getArrayList(cls,this.getScreen());

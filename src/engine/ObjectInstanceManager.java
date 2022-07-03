@@ -44,6 +44,7 @@ public class ObjectInstanceManager {
     }
     public ArrayList<BaseObject> getArrayList(Class<? extends BaseObject> cls, Screen screen) {
         ArrayList<BaseObject> resultarray = new ArrayList<>();
+        if(!data.containsKey(cls)) {registerClass(cls);}
         for(BaseObject object: data.get(cls)) {
             if(object.getScreen().equals(screen)) {
                 resultarray.add(object);

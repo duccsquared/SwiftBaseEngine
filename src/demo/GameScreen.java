@@ -24,13 +24,15 @@ public class GameScreen extends BaseScreen {
         new Obstacle(this,-150,700,50,750);
         new Obstacle(this,300,-400,400,-300);
         player = new Player(this,280,280,320,320);
-        new PlayerSubpart(this,player,-30,-30,270);
-        new PlayerSubpart(this,player,30,-30,180);
-        new PlayerSubpart(this,player,-30,30,0);
-        new PlayerSubpart(this,player,30,30,90);
 
         this.getCamera().attachObject(player);
         this.addSubScreen(new GameButtonsSubScreen(this));
+    }
+
+    @Override
+    public boolean onUnhandledMouseClick() {
+        player.attemptToShoot();
+        return true;
     }
 
     @Override

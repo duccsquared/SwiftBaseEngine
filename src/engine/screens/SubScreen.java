@@ -3,6 +3,7 @@ package engine.screens;
 import engine.AABB;
 import engine.drawHandlers.DrawHandler;
 import engine.drawHandlers.EmptyDraw;
+import engine.io.Mouse;
 import engine.objects.BaseObject;
 import engine.objects.ConcreteSprite;
 import engine.objects.Sprite;
@@ -69,7 +70,10 @@ public abstract class SubScreen extends Screen {
         this.setWidth(width);
         this.setHeight(height);
     }
-
+    @Override
+    public boolean onUnhandledMouseClick() {
+        return this.intersects(Mouse.mousePosX(),Mouse.mousePosY());
+    }
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
@@ -77,5 +81,9 @@ public abstract class SubScreen extends Screen {
             bgSprite.paint(g2d);
         }
         super.paintComponent(g);
+    }
+
+    public boolean intersects(double x, double y) {
+        return x >= this.getX1() && y >= this.getY1() && x <= this.getX2() && y <= this.getY2();
     }
 }
