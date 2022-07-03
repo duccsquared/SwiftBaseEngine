@@ -36,13 +36,13 @@ public class GameScreen extends BaseScreen {
     @Override
     public void tick() {
         super.tick();
-        if(Key.pressed("O")) {
+        if(Key.pressed(Key.O)) {
             this.getCamera().panTo(-300,-300);
         }
-        if(Key.pressed("P")) {
+        if(Key.pressed(Key.P)) {
             this.getCamera().panTo(0,0);
         }
-        if(Key.pressed("I")) {
+        if(Key.pressed(Key.I)) {
             System.out.println(ObjectInstanceManager.getInstance().getArrayList(Obstacle.class).size());
         }
     }

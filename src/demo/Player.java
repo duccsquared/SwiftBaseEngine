@@ -19,7 +19,7 @@ public class Player extends Sprite {
 
     @Override
     public boolean tickMouse() {
-        App.getInstance().getPanel().setCurrentCursor(new Cursor(Cursor.HAND_CURSOR));
+        Mouse.setCursorToHandCursor();
         if(Mouse.leftHeld()) {
             this.setAngle(this.getAngle()+1);
             return true;
@@ -33,16 +33,16 @@ public class Player extends Sprite {
         this.setAngle(this.getAngle()+1);
         double xSpeed = 0;
         double ySpeed = 0;
-        if(Key.held("W")) {
+        if(Key.held(Key.W)) {
             ySpeed -= 5;
         }
-        if(Key.held("A")) {
+        if(Key.held(Key.A)) {
             xSpeed -= 5;
         }
-        if(Key.held("S")) {
+        if(Key.held(Key.S)) {
             ySpeed += 5;
         }
-        if(Key.held("D")) {
+        if(Key.held(Key.D)) {
             xSpeed += 5;
         }
         this.moveX(xSpeed);
@@ -50,11 +50,21 @@ public class Player extends Sprite {
         this.moveY(ySpeed);
         this.resolveCollisionsY(Obstacle.class,-ySpeed);
 
-        if(Key.held("Q")) {
+        if(Key.held(Key.Q)) {
             this.setSize(this.getWidth()-1, this.getHeight()-1);
         }
-        if(Key.held("E")) {
+        if(Key.held(Key.E)) {
             this.setSize(this.getWidth()+1, this.getHeight()+1);
+        }
+        if(Key.held(Key.SPACE)) {
+            this.setFixChildrenAngleToParent(false);
+            this.setAngle(this.getAngle()+1);
+            this.setFixChildrenAngleToParent(true);
+        }
+        if(Key.held(Key.SHIFT)) {
+            this.setFixChildrenAngleToParent(false);
+            this.setAngle(this.getAngle()+1);
+            this.setFixChildrenAngleToParent(true);
         }
     }
 }

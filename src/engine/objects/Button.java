@@ -28,7 +28,7 @@ public abstract class Button extends Sprite {
 
     @Override
     public boolean tickMouse() {
-        App.getInstance().getPanel().setCurrentCursor(new Cursor(Cursor.HAND_CURSOR));
+        Mouse.setCursorToHandCursor();
         if(Mouse.leftClicked()) {
             this.onClick();
             return true;
