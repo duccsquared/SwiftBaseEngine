@@ -13,5 +13,6 @@ public class GameButtonsSubScreen extends SubScreen {
 
     @Override
     public void tick() {
+        super.tick();
     }
 }

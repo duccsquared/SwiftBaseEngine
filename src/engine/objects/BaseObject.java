@@ -1,5 +1,6 @@
 package engine.objects;
 
+import demo.AddEnemyButton;
 import demo.Obstacle;
 import engine.AABB;
 import engine.BaseGlobal;
@@ -21,6 +22,7 @@ public abstract class BaseObject {
     private double angle = 0;
     private DrawHandler drawHandler;
     private BaseObject parent = null;
+    private boolean visible = true;
     private boolean fixChildrenAngleToParent = true;
     private ArrayList<BaseObject> childList = new ArrayList<>();
     private boolean draggable = false;
@@ -69,6 +71,7 @@ public abstract class BaseObject {
     public double getAbsY2() {
         return getAbsY1() + this.getHeight();
     }
+    public boolean isVisible() {return visible;}
     public boolean isFixChildrenAngleToParent() {
         return fixChildrenAngleToParent;
     }
@@ -129,6 +132,7 @@ public abstract class BaseObject {
     public void changeAngle(double angle) {
         this.setAngle(this.getAngle()+angle);
     }
+    public void setVisible(boolean visible) {this.visible = visible;}
     public void setFixChildrenAngleToParent(boolean fixChildrenAngleToParent) {
         this.fixChildrenAngleToParent = fixChildrenAngleToParent;
     }
@@ -157,30 +161,30 @@ public abstract class BaseObject {
         this.setWidth(width);
         this.setHeight(height);
     }
-    public void setParent(BaseObject parent) {
-        if(this.parent==null) {
-            this.getScreen().removeObject(this);
+    public static void setChildParent(BaseObject parent, BaseObject child) {
+        if(child.parent==null) {
+            child.getScreen().removeObject(child);
         }
         else {
-            if(this.parent.hasChild(this) && !this.parent.equals(parent)) {
-                this.parent.removeChild(this);
+            if(child.parent.hasChild(child)) {
+                child.parent.removeChild(child);
             }
         }
-        this.parent = parent;
-        if(parent==null) {
-            this.getScreen().addObject(this);
+        child.parent = parent;
+        if(child.parent==null) {
+            child.getScreen().addObject(child);
         }
         else {
-            if(!this.parent.hasChild(this)) {
-                this.parent.addChild(this);
+            if(!parent.hasChild(child)) {
+                parent.childList.add(child);
             }
         }
     }
+    public void setParent(BaseObject parent) {
+        BaseObject.setChildParent(parent,this);
+    }
     public void addChild(BaseObject child) {
-        this.childList.add(child);
-        if(parent==null || !child.parent().equals(this)) {
-            child.setParent(this);
-        }
+        BaseObject.setChildParent(this,child);
     }
     public void removeChild(BaseObject child) {
         this.childList.remove(child);
@@ -251,7 +255,9 @@ public abstract class BaseObject {
         return false;
     }
     public void paint(Graphics2D g2d) {
-        drawHandler.paint(g2d,this);
+        if(this.isVisible()) {
+            drawHandler.paint(g2d,this);
+        }
         for(BaseObject child : childList) {child.paint(g2d);}
     }
 }

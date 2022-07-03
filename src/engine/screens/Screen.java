@@ -58,7 +58,7 @@ public abstract class Screen {
         for(BaseObject object : tempObjectArray) {
             object.tick();
         }
-        for(SubScreen subScreen: subScreenArray) {subScreen.tick();}
+        for(SubScreen subScreen: subScreenArray) {subScreen.actionPerformed(e);}
     };
     public void tick() {
         for(SubScreen subScreen: subScreenArray) {subScreen.tick();}
