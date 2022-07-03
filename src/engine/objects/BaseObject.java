@@ -5,6 +5,7 @@ import engine.AABB;
 import engine.BaseGlobal;
 import engine.ObjectInstanceManager;
 import engine.drawHandlers.DrawHandler;
+import engine.io.Mouse;
 import engine.screens.BaseScreen;
 import engine.screens.Screen;
 import engine.screens.SubScreen;
@@ -22,6 +23,7 @@ public abstract class BaseObject {
     private BaseObject parent = null;
     private boolean fixChildrenAngleToParent = true;
     private ArrayList<BaseObject> childList = new ArrayList<>();
+    private boolean draggable = false;
     public BaseObject(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2){
         this.init(screen,drawHandler,x1,y1,x2,y2);
     }
@@ -70,6 +72,7 @@ public abstract class BaseObject {
     public boolean isFixChildrenAngleToParent() {
         return fixChildrenAngleToParent;
     }
+    public boolean isDraggable() {return draggable;}
     public BaseObject parent() {
         return this.parent;
     }
@@ -129,6 +132,7 @@ public abstract class BaseObject {
     public void setFixChildrenAngleToParent(boolean fixChildrenAngleToParent) {
         this.fixChildrenAngleToParent = fixChildrenAngleToParent;
     }
+    public void setDraggable(boolean draggable) {this.draggable = draggable;}
     public void setPos(double x1, double y1, double x2, double y2) {
         this.setX1(x1);
         this.setY1(y1);
@@ -239,6 +243,11 @@ public abstract class BaseObject {
         for(BaseObject child : childList) {child.tick();}
     };
     public boolean tickMouse() {
+        Mouse.setCursorToHandCursor();
+        if(this.isDraggable() && Mouse.leftClicked()) {
+            this.getScreen().getDragManager().startDragging(this);
+            return true;
+        }
         return false;
     }
     public void paint(Graphics2D g2d) {

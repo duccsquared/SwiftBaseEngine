@@ -1,8 +1,12 @@
 package engine.screens;
 
 import engine.App;
+import engine.DragManager;
 import engine.camera.Camera;
+import engine.drawHandlers.EmptyDraw;
+import engine.io.Mouse;
 import engine.objects.BaseObject;
+import engine.objects.ConcreteSprite;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,6 +16,7 @@ import java.util.ArrayList;
 public abstract class Screen {
     private String id;
     private Camera camera;
+    private DragManager dragManager;
     private boolean isInitialized = false;
     protected ArrayList<BaseObject> objectArray = new ArrayList<BaseObject>();
     private ArrayList<SubScreen> subScreenArray = new ArrayList<>();
@@ -26,11 +31,13 @@ public abstract class Screen {
     public Screen(String id) {
         this.setId(id);
         this.camera = new Camera();
+        this.dragManager = new DragManager();
     }
     public Screen(String id, Screen parentScreen) {
         this.setId(id);
         this.parentScreen = parentScreen;
         this.camera = new Camera();
+        this.dragManager = new DragManager();
     }
 
     public void onInit(){
@@ -58,10 +65,12 @@ public abstract class Screen {
     };
     public void secondTick() {
         camera.updateCameraPos();
+        dragManager.tick();
         for(SubScreen subScreen: subScreenArray) {subScreen.secondTick();}
     }
     protected boolean handleMouseClick() {
         boolean handled = false;
+        if(dragManager.getObject()!=null) {return true;}
         for(int i = subScreenArray.size()-1; i>=0; i--) {
             SubScreen subScreen = subScreenArray.get(i);
             handled = subScreen.handleMouseClick();
@@ -101,5 +110,5 @@ public abstract class Screen {
     public Camera getCamera() {return camera;}
     public double windowX() {return camera.x();}
     public double windowY() {return camera.y();}
-
+    public DragManager getDragManager() {return dragManager;}
 }
