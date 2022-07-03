@@ -2,6 +2,7 @@ package engine.objects;
 
 import demo.Obstacle;
 import engine.AABB;
+import engine.BaseGlobal;
 import engine.ObjectInstanceManager;
 import engine.drawHandlers.DrawHandler;
 import engine.screens.BaseScreen;
@@ -19,6 +20,7 @@ public abstract class BaseObject {
     private double angle = 0;
     private DrawHandler drawHandler;
     private BaseObject parent = null;
+    private boolean fixChildrenAngleToParent = true;
     private ArrayList<BaseObject> childList = new ArrayList<>();
     public BaseObject(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2) throws IOException {
         this.init(screen,drawHandler,x1,y1,x2,y2);
@@ -65,6 +67,9 @@ public abstract class BaseObject {
     public double getAbsY2() {
         return getAbsY1() + this.getHeight();
     }
+    public boolean isFixChildrenAngleToParent() {
+        return fixChildrenAngleToParent;
+    }
     public BaseObject parent() {
         return this.parent;
     }
@@ -107,7 +112,23 @@ public abstract class BaseObject {
         }
         aabb.setHeight(height);
     }
-    public void setAngle(double angle) {this.angle = angle;}
+    public void setAngle(double angle) {
+        if(this.fixChildrenAngleToParent) {
+            double angleDiff = angle - this.getAngle();
+            for(BaseObject child : this.childList) {
+                double[] coords = BaseGlobal.rotateAroundPoint(child.getX(),child.getY(),this.getX(),this.getY(),angleDiff);
+                child.setPos(coords[0],coords[1]);
+                child.changeAngle(angleDiff);
+            }
+        }
+        this.angle = angle;
+    }
+    public void changeAngle(double angle) {
+        this.setAngle(this.getAngle()+angle);
+    }
+    public void setFixChildrenAngleToParent(boolean fixChildrenAngleToParent) {
+        this.fixChildrenAngleToParent = fixChildrenAngleToParent;
+    }
     public void setPos(double x1, double y1, double x2, double y2) {
         this.setX1(x1);
         this.setY1(y1);

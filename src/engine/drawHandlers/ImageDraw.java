@@ -38,9 +38,9 @@ public class ImageDraw extends DrawHandler{
         double x = object.getAbsX1();
         double y = object.getAbsY1();
         double angle = object.getAngle();
-        g2d.rotate(Math.toRadians(angle), (int) (x+object.getWidth()/2), (int) (y+object.getHeight()/2));
-        result = g2d.drawImage(this.img,(int) x,(int) y, App.getInstance().getPanel());
         g2d.rotate(Math.toRadians(-angle), (int) (x+object.getWidth()/2), (int) (y+object.getHeight()/2));
+        result = g2d.drawImage(this.img,(int) x,(int) y, App.getInstance().getPanel());
+        g2d.rotate(Math.toRadians(angle), (int) (x+object.getWidth()/2), (int) (y+object.getHeight()/2));
         return result;
     }
 }
