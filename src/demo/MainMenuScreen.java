@@ -17,7 +17,7 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class MainMenuScreen extends BaseScreen {
-    public MainMenuScreen(String id) throws IOException {
+    public MainMenuScreen(String id) {
         super(id);
         Text.newInstance(this,"Swift Base Engine",300,150,40);
         Text.newInstance(this,"Demo Game",300,200,40);

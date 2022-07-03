@@ -31,9 +31,9 @@ public abstract class Panel extends JPanel implements ActionListener {
     public Cursor getCurrentCursor() {return currentCursor;}
     public void setCurrentCursor(Cursor currentCursor) {this.currentCursor = currentCursor;}
 
-    public abstract void start() throws IOException;
+    public abstract void start();
     public void registerScreen(BaseScreen screen) {screenHash.put(screen.getId(),screen);}
-    public void setCurrentScreen(String id) throws IOException {
+    public void setCurrentScreen(String id) {
         if(this.currentScreen!=null) {
             this.currentScreen.onPause();
         }

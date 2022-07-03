@@ -19,25 +19,25 @@ public class Text extends BaseObject {
     private Font font;
     private String string;
     private Boolean coordsFixed;
-    private Text(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2) throws IOException {
+    private Text(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2) {
         super(screen, drawHandler, x1, y1, x2, y2);
     }
-    public static Text newInstance(Screen screen, String string, double x, double y, int fontSize) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x, double y, int fontSize) {
         return init(screen,string,x,y,defaultFontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),Text.CENTER,Text.CENTER,true);
     }
-    public static Text newInstance(Screen screen, String string, double x, double y, int fontSize, int hAlign, int vAlign) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x, double y, int fontSize, int hAlign, int vAlign){
         return init(screen,string,x,y,defaultFontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),hAlign,vAlign,true);
     }
-    public static Text newInstance(Screen screen, String string, double x, double y, String fontStr, int fontSize) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x, double y, String fontStr, int fontSize) {
         return init(screen,string,x,y,fontStr, Font.PLAIN,fontSize,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),Text.CENTER,Text.CENTER,true);
     }
-    public static Text newInstance(Screen screen, String string, double x, double y, int fontSize, int r, int g, int b) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x, double y, int fontSize, int r, int g, int b) {
         return init(screen,string,x,y,defaultFontStr, Font.PLAIN,fontSize,r,g,b,Text.CENTER,Text.CENTER,false);
     }
-    public static Text newInstance(Screen screen, String string, double x, double y, String fontStr, int fontStyle, int fontSize, int r, int g, int b, int hAlign, int vAlign, boolean fixedPos) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x, double y, String fontStr, int fontStyle, int fontSize, int r, int g, int b, int hAlign, int vAlign, boolean fixedPos){
         return init(screen,string,x,y,fontStr, fontStyle,fontSize,r,g,b,hAlign,vAlign,fixedPos);
     }
-    public static Text init(Screen screen, String string, double x, double y, String fontStr, int fontStyle, int fontSize, int r, int g, int b, int hAlign, int vAlign, boolean fixedPos) throws IOException {
+    public static Text init(Screen screen, String string, double x, double y, String fontStr, int fontStyle, int fontSize, int r, int g, int b, int hAlign, int vAlign, boolean fixedPos) {
         Font font = new Font(fontStr,fontStyle,fontSize);
         double[] coords = getCoordsFromFontSize(font,string,x,y);
         double width = coords[2] - coords[0]; double height = coords[3] - coords[1];
@@ -53,22 +53,22 @@ public class Text extends BaseObject {
         text.color = new Color(r,g,b);
         return text;
     }
-    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2) {
         return init(screen,string,x1,y1, x2, y2,defaultFontStr, Font.PLAIN,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),true);
     }
-    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, String fontStr) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, String fontStr){
         return init(screen,string,x1,y1, x2, y2,fontStr, Font.PLAIN,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),true);
     }
-    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, int fontStyle) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, int fontStyle){
         return init(screen,string,x1,y1, x2, y2,defaultFontStr, fontStyle,defaultColor.getRed(),defaultColor.getGreen(),defaultColor.getBlue(),true);
     }
-    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, int r, int g, int b) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, int r, int g, int b) {
         return init(screen,string,x1,y1, x2, y2,defaultFontStr,Font.PLAIN,r,g,b,true);
     }
-    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, String fontStr, int fontStyle, int r, int g, int b, boolean fixedPos) throws IOException {
+    public static Text newInstance(Screen screen, String string, double x1, double y1, double x2, double y2, String fontStr, int fontStyle, int r, int g, int b, boolean fixedPos) {
         return init(screen,string,x1,y1, x2, y2,fontStr, fontStyle,r,g,b,fixedPos);
     }
-    public static Text init(Screen screen, String string, double x1, double y1, double x2, double y2, String fontStr, int fontStyle, int r, int g, int b, boolean fixedPos) throws IOException {
+    public static Text init(Screen screen, String string, double x1, double y1, double x2, double y2, String fontStr, int fontStyle, int r, int g, int b, boolean fixedPos){
         Text text = new Text(screen, new TextDraw(),x1,y1,x2,y2);
         text.setFixedPos(fixedPos);
         text.coordsFixed = true;

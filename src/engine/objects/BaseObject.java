@@ -22,10 +22,10 @@ public abstract class BaseObject {
     private BaseObject parent = null;
     private boolean fixChildrenAngleToParent = true;
     private ArrayList<BaseObject> childList = new ArrayList<>();
-    public BaseObject(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2) throws IOException {
+    public BaseObject(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2){
         this.init(screen,drawHandler,x1,y1,x2,y2);
     }
-    public void init(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2) throws IOException {
+    public void init(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2){
         this.screen = screen;
         this.drawHandler = drawHandler;
         screen.addObject(this);

@@ -36,15 +36,22 @@ public class BaseGlobal {
         File f = new File(fileName);
         return f.exists();
     }
-    public static ArrayList<String> importFile(String fileName) throws IOException {
-        BufferedReader br = new BufferedReader(new FileReader(fileName));
-        ArrayList<String> lineArray = new ArrayList<String>();
-        String st = br.readLine();
-        while(st!=null) {
-            lineArray.add(st);
-            st = br.readLine();
+    public static ArrayList<String> importFile(String fileName){
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(fileName));
+            ArrayList<String> lineArray = new ArrayList<String>();
+            String st = br.readLine();
+            while (st != null) {
+                lineArray.add(st);
+                st = br.readLine();
+            }
+            return lineArray;
         }
-        return lineArray;
+        catch(IOException e) {
+            e.printStackTrace();
+            System.exit(1);
+            return null;
+        }
     }
     public static boolean regexCheckFullMatch(Pattern pattern, String input) {
         return pattern.matcher(input).matches();

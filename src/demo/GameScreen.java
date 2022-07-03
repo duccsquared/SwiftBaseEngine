@@ -13,7 +13,7 @@ import java.io.IOException;
 public class GameScreen extends BaseScreen {
     private Player player;
 
-    public GameScreen(String id) throws IOException {
+    public GameScreen(String id) {
         super(id);
         new Obstacle(this,100,100,200,200);
         new Obstacle(this,400,500,550,550);

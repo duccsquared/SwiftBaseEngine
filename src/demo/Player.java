@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Player extends Sprite {
-    public Player(Screen screen, double x1, double y1, double x2, double y2) throws IOException {
+    public Player(Screen screen, double x1, double y1, double x2, double y2) {
         super(screen, "src/demo/res/player.png", x1, y1, x2, y2);
     }
 

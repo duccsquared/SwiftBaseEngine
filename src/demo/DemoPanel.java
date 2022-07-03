@@ -7,12 +7,12 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public class DemoPanel extends Panel {
-    public DemoPanel() throws IOException {
+    public DemoPanel(){
         super(Color.darkGray);
     }
 
     @Override
-    public void start() throws IOException {
+    public void start() {
         this.registerScreen(new MainMenuScreen("mainMenu"));
         this.registerScreen(new GameScreen("game"));
         this.setCurrentScreen("mainMenu");

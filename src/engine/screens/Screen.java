@@ -33,13 +33,13 @@ public abstract class Screen {
         this.camera = new Camera();
     }
 
-    public void onInit() throws IOException {
+    public void onInit(){
         for(SubScreen subScreen: subScreenArray) {subScreen.onInit();}
     };
-    public void onPause() throws IOException {
+    public void onPause() {
         for(SubScreen subScreen: subScreenArray) {subScreen.onPause();}
     };
-    public void onUnpause() throws IOException {
+    public void onUnpause() {
         if(!isInitialized) {
             this.isInitialized = true;
             this.onInit();

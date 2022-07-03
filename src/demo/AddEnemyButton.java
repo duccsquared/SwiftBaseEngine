@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.Random;
 
 public class AddEnemyButton extends Button {
-    public AddEnemyButton(Screen screen,double x1, double y1, double x2, double y2) throws IOException {
+    public AddEnemyButton(Screen screen,double x1, double y1, double x2, double y2)  {
         super(screen, "", "src/demo/res/addEnemyButton.png", x1, y1, x2, y2);
     }
 

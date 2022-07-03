@@ -41,7 +41,7 @@ public class App extends JFrame {
     public static boolean isInstantiated() {
         return instance != null;
     }
-    public static void instantiate(String title, int width, int height, Panel panel) throws IOException {
+    public static void instantiate(String title, int width, int height, Panel panel) {
         instance = new App(title,width,height,panel);
         panel.start();
     }
