@@ -12,27 +12,21 @@ import java.awt.event.ActionEvent;
 import java.io.IOException;
 
 public abstract class SubScreen extends Screen {
-    private DrawHandler drawHandler;
-    private BaseScreen screen;
     private Sprite bgSprite;
     public SubScreen(String id, BaseScreen screen, double x1, double y1, double x2, double y2) throws IOException {
-        super(id); bgSprite = new ConcreteSprite(screen,new EmptyDraw(),x1,y1,x2,y2);
-        this.init(screen);
+        super(id,screen); bgSprite = new ConcreteSprite(screen,new EmptyDraw(),x1,y1,x2,y2);
+        bgSprite.setFixedPos(true);
     }
     public SubScreen(String id, BaseScreen screen, Color color, Color borderColor, double x1, double y1, double x2, double y2) throws IOException {
-        super(id); bgSprite = new ConcreteSprite(screen,color,borderColor,x1,y1,x2,y2);
-        this.init(screen);
+        super(id,screen); bgSprite = new ConcreteSprite(screen,color,borderColor,x1,y1,x2,y2);
+        bgSprite.setFixedPos(true);
     }
     public SubScreen(String id, BaseScreen screen, int r, int g, int b, int borderR, int borderG, int borderB, double x1, double y1, double x2, double y2) throws IOException {
-        super(id); bgSprite = new ConcreteSprite(screen,r,g,b,borderR,borderG,borderB,x1,y1,x2,y2);
-        this.init(screen);
+        super(id,screen); bgSprite = new ConcreteSprite(screen,r,g,b,borderR,borderG,borderB,x1,y1,x2,y2);
+        bgSprite.setFixedPos(true);
     }
     public SubScreen(String id, BaseScreen screen, String imgPath, double x1, double y1, double x2, double y2) throws IOException {
-        super(id); bgSprite = new ConcreteSprite(screen,imgPath,x1,y1,x2,y2);
-        this.init(screen);
-    }
-    private void init(BaseScreen screen) {
-        this.screen = screen;
+        super(id,screen); bgSprite = new ConcreteSprite(screen,imgPath,x1,y1,x2,y2);
         bgSprite.setFixedPos(true);
     }
     public double getX() {return bgSprite.getX();}
@@ -74,15 +68,6 @@ public abstract class SubScreen extends Screen {
     public void setSize(double width, double height) {
         this.setWidth(width);
         this.setHeight(height);
-    }
-    public BaseScreen parent() {
-        return this.screen;
-    }
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        for(BaseObject object: this.getObjectArray()) {
-            object.tick();
-        }
     }
 
     @Override
