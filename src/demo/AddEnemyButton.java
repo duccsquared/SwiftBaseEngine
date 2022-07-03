@@ -20,11 +20,6 @@ public class AddEnemyButton extends Button {
     public void onClick() {
         double x = Global.randInt(-100,700);
         double y =  Global.randInt(-100,700);
-        try {
-            new Enemy(((SubScreen) this.getScreen()).parent(),x,y);
-        }
-        catch(IOException e) {
-            e.printStackTrace();
-        }
+        new Enemy((this.getScreen()).root(),x,y);
     }
 }

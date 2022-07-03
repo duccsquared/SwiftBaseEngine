@@ -15,7 +15,7 @@ public class Enemy extends Sprite {
     double nudgeY = 0;
     double targetX = 0;
     double targetY = 0;
-    public Enemy(Screen screen, double x, double y) throws IOException {
+    public Enemy(Screen screen, double x, double y) {
         super(screen, "src/demo/res/enemy.png", x-20,y-20,x+20,y+20);
         ObjectInstanceManager.getInstance().addInstance(this,Enemy.class);
         speedX = Global.randInt(-3,3);
