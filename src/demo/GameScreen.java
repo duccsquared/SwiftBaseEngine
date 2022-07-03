@@ -11,7 +11,7 @@ import java.awt.*;
 import java.io.IOException;
 
 public class GameScreen extends BaseScreen {
-    private Sprite player;
+    private Player player;
 
     public GameScreen(String id) throws IOException {
         super(id);
@@ -24,7 +24,11 @@ public class GameScreen extends BaseScreen {
         new Obstacle(this,-150,700,50,750);
         new Obstacle(this,300,-400,400,-300);
         player = new Player(this,280,280,320,320);
-        System.out.println(((Sprite) player).getClass());
+        new PlayerSubpart(this,player,-30,-30,90);
+        new PlayerSubpart(this,player,30,-30,180);
+        new PlayerSubpart(this,player,-30,30,0);
+        new PlayerSubpart(this,player,30,30,270);
+
         this.getCamera().attachObject(player);
         this.addSubScreen(new GameButtonsSubScreen(this));
     }

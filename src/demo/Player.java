@@ -29,6 +29,7 @@ public class Player extends Sprite {
 
     @Override
     public void tick() {
+        super.tick();
         this.setAngle(this.getAngle()+1);
         double xSpeed = 0;
         double ySpeed = 0;

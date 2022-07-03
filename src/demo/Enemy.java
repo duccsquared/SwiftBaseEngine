@@ -32,6 +32,7 @@ public class Enemy extends Sprite {
 
     @Override
     public void tick() {
+        super.tick();
         double dist = Global.distance(this.getX(),this.getY(),targetX,targetY);
         if(dist<30 || Global.randRange(0,1)<0.005) {
             speed = Global.randRange(1.5,2.5);

@@ -18,6 +18,8 @@ public abstract class BaseObject {
     private boolean fixedPos = false;
     private double angle = 0;
     private DrawHandler drawHandler;
+    private BaseObject parent = null;
+    private ArrayList<BaseObject> childList = new ArrayList<>();
     public BaseObject(Screen screen, DrawHandler drawHandler, double x1, double y1, double x2, double y2) throws IOException {
         this.init(screen,drawHandler,x1,y1,x2,y2);
     }
@@ -63,15 +65,48 @@ public abstract class BaseObject {
     public double getAbsY2() {
         return getAbsY1() + this.getHeight();
     }
+    public BaseObject parent() {
+        return this.parent;
+    }
+    public BaseObject root() {
+        if(this.parent()==null) {
+            return this;
+        }
+        else {
+            return this.parent().root();
+        }
+    }
     public void setFixedPos(boolean fixedPos) {this.fixedPos = fixedPos;}
-    public void setX(double x) {aabb.setX(x);}
-    public void setY(double y) {aabb.setY(y);}
+    public void setX(double x) {
+        for(BaseObject child : this.childList) {child.moveX(x-this.getX());}
+        aabb.setX(x);
+    }
+    public void setY(double y) {
+        for(BaseObject child : this.childList) {child.moveY(y-this.getY());}
+        aabb.setY(y);
+    }
     public void setX1(double x1) {aabb.setX1(x1);}
     public void setX2(double x2) {aabb.setX2(x2);}
     public void setY1(double y1) {aabb.setY1(y1);}
     public void setY2(double y2) {aabb.setY2(y2);}
-    public void setWidth(double width) {aabb.setWidth(width);}
-    public void setHeight(double height) {aabb.setHeight(height);}
+    public void setWidth(double width) {
+        for(BaseObject child : this.childList) {
+            double ratio = width/this.getWidth();
+            double newDist = (child.getX() - this.getX()) * ratio;
+            child.setWidth(ratio * child.getWidth());
+            child.setX(this.getX() + newDist);
+        }
+        aabb.setWidth(width);
+    }
+    public void setHeight(double height) {
+        for(BaseObject child : this.childList) {
+            double ratio = height/this.getHeight();
+            double newDist = (child.getY() - this.getY()) * ratio;
+            child.setHeight(ratio * child.getHeight());
+            child.setY(this.getY() + newDist);
+        }
+        aabb.setHeight(height);
+    }
     public void setAngle(double angle) {this.angle = angle;}
     public void setPos(double x1, double y1, double x2, double y2) {
         this.setX1(x1);
@@ -96,6 +131,40 @@ public abstract class BaseObject {
     public void setSize(double width, double height) {
         this.setWidth(width);
         this.setHeight(height);
+    }
+    public void setParent(BaseObject parent) {
+        if(this.parent==null) {
+            this.getScreen().removeObject(this);
+        }
+        else {
+            if(this.parent.hasChild(this)) {
+                this.parent.removeChild(this);
+            }
+        }
+        this.parent = parent;
+        if(parent==null) {
+            this.getScreen().addObject(this);
+        }
+        else {
+            if(!this.parent.hasChild(this)) {
+                this.parent.addChild(this);
+            }
+        }
+    }
+    public void addChild(BaseObject child) {
+        this.childList.add(child);
+        if(!child.parent().equals(this)) {
+            child.setParent(this);
+        }
+    }
+    public void removeChild(BaseObject child) {
+        this.childList.remove(child);
+        if(!child.parent().equals(null)) {
+            child.setParent(null);
+        }
+    }
+    public boolean hasChild(BaseObject child) {
+        return this.childList.contains(child);
     }
     public boolean intersects(double x, double y) {
         return x >= this.getX1() && y >= this.getY1() && x <= this.getX2() && y <= this.getY2();
@@ -136,11 +205,14 @@ public abstract class BaseObject {
     public void delete() {
         this.screen.removeObject(this);
     }
-    public  abstract void tick();
+    public void tick() {
+        for(BaseObject child : childList) {child.tick();}
+    };
     public boolean tickMouse() {
         return false;
     }
     public void paint(Graphics2D g2d) {
         drawHandler.paint(g2d,this);
+        for(BaseObject child : childList) {child.paint(g2d);}
     }
 }
