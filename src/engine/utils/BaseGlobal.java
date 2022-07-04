@@ -82,6 +82,12 @@ public class BaseGlobal {
     public static double limitMinMax(double value, double minVal, double maxVal) {
         return Math.max(minVal,Math.min(value,maxVal));
     }
+    public static double roundTo(double value, double interval) {
+        return Math.round(value / interval) * interval;
+    }
+    public static double clearFloatingPointRoundingError(double value) {
+        return Double.parseDouble(String.format("%.10f",value));
+    }
     public static double distance(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x2-x1,2)+Math.pow(y2-y1,2));
     }

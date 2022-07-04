@@ -77,6 +77,11 @@ public abstract class Screen {
             if(object.intersectsAbs(App.getInstance().getMousePosX(),App.getInstance().getMousePosY())) {
                 handled = object.tickMouse();
             }
+            for(BaseObject child : object.getChildList()) {
+                if(child.intersectsAbs(App.getInstance().getMousePosX(),App.getInstance().getMousePosY())) {
+                    handled = child.tickMouse();
+                }
+            }
             if(handled) {return true;}
         }
         return onUnhandledMouseClick();

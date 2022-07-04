@@ -17,7 +17,7 @@ public class Bullet extends Sprite {
         this.startY = y;
         this.speed += Global.randRange(-1,1);
         double inaccuracy = Global.randRange(-5,5);
-        double[] coords = Global.dirToCoor(Global.coorToDir(x,y, Mouse.relMousePosX(),Mouse.relMousePosY())+inaccuracy);
+        double[] coords = Global.dirToCoor(Global.coorToDir(x,y, Mouse.relMousePosX(this.getScreen()),Mouse.relMousePosY(this.getScreen()))+inaccuracy);
         speedX = coords[0] * speed;
         speedY = coords[1] * speed;
     }

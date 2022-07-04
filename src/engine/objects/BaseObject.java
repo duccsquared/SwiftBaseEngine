@@ -71,6 +71,9 @@ public abstract class BaseObject {
         return fixChildrenAngleToParent;
     }
     public boolean isDraggable() {return draggable;}
+    public ArrayList<BaseObject> getChildList() {
+        return (ArrayList<BaseObject>) childList.clone();
+    }
     public BaseObject parent() {
         return this.parent;
     }
@@ -82,7 +85,10 @@ public abstract class BaseObject {
             return this.parent().root();
         }
     }
-    public void setFixedPos(boolean fixedPos) {this.fixedPos = fixedPos;}
+    public void setFixedPos(boolean fixedPos) {
+        this.fixedPos = fixedPos;
+        for(BaseObject child : this.childList) {child.setFixedPos(true);}
+    }
     public void setX(double x) {
         for(BaseObject child : this.childList) {child.moveX(x-this.getX());}
         aabb.setX(x);
@@ -235,14 +241,21 @@ public abstract class BaseObject {
         resolveCollisionsX(cls,dirX);
         resolveCollisionsY(cls,dirY);
     }
+    public void onDrag() {
+        Mouse.setCursorToHandCursor();
+        for(BaseObject child : childList) {child.onDrag();}
+    }
     public void delete() {
         this.screen.removeObject(this);
+        for(BaseObject child : childList) {child.delete();}
     }
     public void tick() {
         for(BaseObject child : childList) {child.tick();}
     };
     public boolean tickMouse() {
-        Mouse.setCursorToHandCursor();
+        if(this.isDraggable()) {
+            Mouse.setCursorToHandCursor();
+        }
         if(this.isDraggable() && Mouse.leftClicked()) {
             this.getScreen().getDragManager().startDragging(this);
             return true;
