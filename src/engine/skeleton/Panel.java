@@ -24,6 +24,7 @@ public abstract class Panel extends JPanel implements ActionListener {
     public Panel(Color color, int delay) {
         setBackground(color);
         this.DELAY = delay;
+        this.screenHash = new HashMap<>();
         timer = new Timer(DELAY, this);
         timer.start();
     }
