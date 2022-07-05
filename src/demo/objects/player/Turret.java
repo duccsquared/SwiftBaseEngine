@@ -12,6 +12,6 @@ public class Turret extends Sprite {
 
     @Override
     public void tick() {
-        this.setAngle(Global.coorToDir(this.getX(),this.getY(), Mouse.relMousePosX(this.getScreen()),Mouse.relMousePosY(this.getScreen())));
+        this.setAngle(Global.coorToDir(this.x(),this.y(), Mouse.relMousePosX(this.getScreen()),Mouse.relMousePosY(this.getScreen())));
     }
 }

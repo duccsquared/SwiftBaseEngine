@@ -15,13 +15,13 @@ public class Player extends Sprite {
         new PlayerSubpart(screen,this,30,-30,180);
         new PlayerSubpart(screen,this,-30,30,0);
         new PlayerSubpart(screen,this,30,30,90);
-        this.addChild(new Turret(screen,this.getX(),this.getY()));
+        this.addChild(new Turret(screen,this.x(),this.y()));
     }
 
     public void attemptToShoot() {
         if(cooldown<=0 && Mouse.leftHeld()) {
             cooldown = 20;
-            new Bullet(this.getScreen(),this.getX(),this.getY());
+            new Bullet(this.getScreen(),this.x(),this.y());
         }
     }
     @Override
@@ -59,10 +59,10 @@ public class Player extends Sprite {
         this.resolveCollisionsY(Obstacle.class,-ySpeed);
 
         if(Key.held(Key.Q)) {
-            this.setSize(this.getWidth()-1, this.getHeight()-1);
+            this.setSize(this.width()-1, this.height()-1);
         }
         if(Key.held(Key.E)) {
-            this.setSize(this.getWidth()+1, this.getHeight()+1);
+            this.setSize(this.width()+1, this.height()+1);
         }
         if(Key.held(Key.SPACE)) {
             this.setFixChildrenAngleToParent(false);

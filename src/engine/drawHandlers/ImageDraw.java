@@ -20,10 +20,10 @@ public class ImageDraw extends DrawHandler{
     }
     @Override
     public void paint(Graphics2D g2d, BaseObject object) {
-        if(object.getWidth()!= currentWidth || object.getHeight() != currentHeight) {
-            currentWidth = object.getWidth();
-            currentHeight = object.getHeight();
-            img = baseImg.getScaledInstance((int) object.getWidth(), (int) object.getHeight(), Image.SCALE_DEFAULT);
+        if(object.width()!= currentWidth || object.height() != currentHeight) {
+            currentWidth = object.width();
+            currentHeight = object.height();
+            img = baseImg.getScaledInstance((int) object.width(), (int) object.height(), Image.SCALE_DEFAULT);
             boolean result = false;
             while (!result) {
                 result = rotateAndDraw(g2d,object);
@@ -38,9 +38,9 @@ public class ImageDraw extends DrawHandler{
         double x = object.getAbsX1();
         double y = object.getAbsY1();
         double angle = object.getAngle();
-        g2d.rotate(Math.toRadians(-angle), (int) (x+object.getWidth()/2), (int) (y+object.getHeight()/2));
+        g2d.rotate(Math.toRadians(-angle), (int) (x+object.width()/2), (int) (y+object.height()/2));
         result = g2d.drawImage(this.img,(int) x,(int) y, App.getInstance().getPanel());
-        g2d.rotate(Math.toRadians(angle), (int) (x+object.getWidth()/2), (int) (y+object.getHeight()/2));
+        g2d.rotate(Math.toRadians(angle), (int) (x+object.width()/2), (int) (y+object.height()/2));
         return result;
     }
 }

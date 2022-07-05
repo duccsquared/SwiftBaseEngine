@@ -100,16 +100,16 @@ public class Text extends BaseObject {
         return new double[] {x1,y1,x1+r.getWidth(),y1-r.getY()};
     }
     public double[] getCoordsFromFontSize() {
-        return this.getCoordsFromFontSize(this.getFont(),this.getString(),this.getX1(),this.getY1());
+        return this.getCoordsFromFontSize(this.getFont(),this.getString(),this.x1(),this.y1());
     }
     public void updateCoordsFromFontSize() {
         double[] coords = this.getCoordsFromFontSize();
         this.setPos(coords[0],coords[1],coords[2],coords[3]);
     }
     public int getFontSizeFromCoords() {
-        double x1 = this.getX1(); double y1 = this.getY1();
-        double x2 = this.getX2(); double y2 = this.getY2();
-        double width = this.getWidth(); double height = this.getHeight();
+        double x1 = this.x1(); double y1 = this.y1();
+        double x2 = this.x2(); double y2 = this.y2();
+        double width = this.width(); double height = this.height();
         this.coordsFixed = false;
         double approxSize = 30;
         final double MARGIN = 0.1;
@@ -117,26 +117,26 @@ public class Text extends BaseObject {
         int attempts = 0;
         while(Math.abs(1-errorRatio)>(MARGIN/10.0)*(10+attempts) || errorRatio>1) {
             this.setFontSize((int) approxSize);
-            double approxWidth = this.getX2() - this.getX1();
+            double approxWidth = this.x2() - this.x1();
             errorRatio = width/approxWidth;
             approxSize *= errorRatio;
             attempts += 1;
         }
         final int SIZE1 = (int)approxSize-5; final int SIZE2 = (int)approxSize+5;
         this.setFontSize(SIZE1);
-        double width1 = this.getX2() - this.getX1();
-        double height1 = this.getY2() - this.getY1();
+        double width1 = this.x2() - this.x1();
+        double height1 = this.y2() - this.y1();
         this.setFontSize(SIZE2);
-        double width2 = this.getX2() - this.getX1();
-        double height2 = this.getY2() - this.getY1();
+        double width2 = this.x2() - this.x1();
+        double height2 = this.y2() - this.y1();
         double mW = (SIZE2 - SIZE1)/(width2 - width1);
         double mH = (SIZE2 - SIZE1)/(height2 - height1);
         double cW = SIZE1 - mW*width1;
         double cH = SIZE1 - mH*height1;
         this.coordsFixed = true;
         this.setPos(x1,y1,x2,y2);
-        double fontSizeW = mW * this.getWidth() + cW;
-        double fontSizeH = mH * this.getHeight() + cH;
+        double fontSizeW = mW * this.width() + cW;
+        double fontSizeH = mH * this.height() + cH;
         int result = (int) Math.min(fontSizeW,fontSizeH);
         return result;
     }

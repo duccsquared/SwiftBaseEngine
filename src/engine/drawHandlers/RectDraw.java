@@ -32,8 +32,8 @@ public class RectDraw extends DrawHandler {
     public void paint(Graphics2D g2d, BaseObject object) {
         int x = (int) object.getAbsX1();
         int y = (int) object.getAbsY1();
-        int width = (int) object.getWidth();
-        int height = (int) object.getHeight();
+        int width = (int) object.width();
+        int height = (int) object.height();
         g2d.setColor(colour);
         g2d.fillRect(x,y,width,height);
         g2d.setColor(borderColour);

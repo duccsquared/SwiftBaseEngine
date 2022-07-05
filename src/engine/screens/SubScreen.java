@@ -25,14 +25,14 @@ public abstract class SubScreen extends Screen {
         super(id,screen); bgSprite = new ConcreteSprite(screen,imgPath,x1,y1,x2,y2);
         bgSprite.setFixedPos(true);
     }
-    public double getX() {return bgSprite.getX();}
-    public double getY() {return bgSprite.getY();}
-    public double getX1() {return bgSprite.getX1();}
-    public double getY1() {return bgSprite.getY1();}
-    public double getX2() {return bgSprite.getX2();}
-    public double getY2() {return bgSprite.getY2();}
-    public double getWidth() {return bgSprite.getWidth();}
-    public double getHeight() {return bgSprite.getHeight();}
+    public double x() {return bgSprite.x();}
+    public double y() {return bgSprite.y();}
+    public double x1() {return bgSprite.x1();}
+    public double y1() {return bgSprite.y1();}
+    public double x2() {return bgSprite.x2();}
+    public double y2() {return bgSprite.y2();}
+    public double width() {return bgSprite.width();}
+    public double height() {return bgSprite.height();}
     public void setX(double x) {bgSprite.setX(x);}
     public void setY(double y) {bgSprite.setY(y);}
     public void setX1(double x1) {bgSprite.setX1(x1);}
@@ -52,10 +52,10 @@ public abstract class SubScreen extends Screen {
         this.setY(y);
     }
     public void moveX(double x) {
-        this.setX(this.getX()+x);
+        this.setX(this.x()+x);
     }
     public void moveY(double y) {
-        this.setY(this.getY()+y);
+        this.setY(this.y()+y);
     }
     public void movePos(double x, double y) {
         this.moveX(x);
@@ -79,6 +79,6 @@ public abstract class SubScreen extends Screen {
     }
 
     public boolean intersects(double x, double y) {
-        return x >= this.getX1() && y >= this.getY1() && x <= this.getX2() && y <= this.getY2();
+        return x >= this.x1() && y >= this.y1() && x <= this.x2() && y <= this.y2();
     }
 }

@@ -18,33 +18,33 @@ public class Tooltip extends Sprite {
         return newInstance(screen,parent,tooltipStr,Tooltip.UP,20,80,80,80,200,200,200);
     }
     public static Tooltip newInstance(Screen screen, BaseObject parent, String tooltipStr, int orientation, int fontSize, int r, int g, int b, int borderR, int borderG, int borderB) {
-        Text text = Text.newInstance(screen,tooltipStr,parent.getX(),parent.getY(),fontSize);
+        Text text = Text.newInstance(screen,tooltipStr,parent.x(),parent.y(),fontSize);
         double borderMarginFrac = 0.2;
-        double borderMarginWidth = text.getWidth() * borderMarginFrac;
-        double borderMarginHeight = text.getHeight() * borderMarginFrac;
-        double diffX = parent.getWidth()/2 + (text.getWidth())/2 + borderMarginWidth;
-        double diffY = parent.getHeight()/2 + (text.getHeight())/2 + borderMarginHeight;
-        double diffMargin = 0.2 * Math.min(parent.getWidth(),parent.getHeight());
+        double borderMarginWidth = text.width() * borderMarginFrac;
+        double borderMarginHeight = text.height() * borderMarginFrac;
+        double diffX = parent.width()/2 + (text.width())/2 + borderMarginWidth;
+        double diffY = parent.height()/2 + (text.height())/2 + borderMarginHeight;
+        double diffMargin = 0.2 * Math.min(parent.width(),parent.height());
 
         switch (orientation) {
             case Tooltip.UP:
-                text.setY(parent.getY()-diffY-diffMargin);
+                text.setY(parent.y()-diffY-diffMargin);
                 break;
             case Tooltip.DOWN:
-                text.setY(parent.getY()+diffY+diffMargin);
+                text.setY(parent.y()+diffY+diffMargin);
                 break;
             case Tooltip.LEFT:
-                text.setX(parent.getX()-diffX-diffMargin);
+                text.setX(parent.x()-diffX-diffMargin);
                 break;
             case Tooltip.RIGHT:
-                text.setX(parent.getX()+diffX+diffMargin);
+                text.setX(parent.x()+diffX+diffMargin);
                 break;
             default:
                 ExceptionThrower.throwException(new InvalidArgumentException(new String[]{"invalid orientation for tooltip"}));
         }
         Tooltip tooltip = new Tooltip(screen,r,g,b,borderR,borderB,borderG,
-                text.getX1()-borderMarginWidth,text.getY1()-borderMarginHeight,
-                text.getX2()+borderMarginWidth,text.getY2()+borderMarginHeight);
+                text.x1()-borderMarginWidth,text.y1()-borderMarginHeight,
+                text.x2()+borderMarginWidth,text.y2()+borderMarginHeight);
         tooltip.addChild(text);
         tooltip.text = text;
         //parent.addChild(tooltip);

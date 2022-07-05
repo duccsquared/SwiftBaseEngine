@@ -32,7 +32,7 @@ public class Bullet extends Sprite {
             intersectingEnemy.delete();
             this.delete();
         }
-        if(Global.distance(startX,startY,this.getX(),this.getY())>600) {
+        if(Global.distance(startX,startY,this.x(),this.y())>600) {
             this.delete();
         }
     }

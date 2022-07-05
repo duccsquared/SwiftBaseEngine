@@ -34,12 +34,12 @@ public class ObjectAttacher {
         this.relY = relY;
     }
     private double objectX() {
-        if(this.centered) {return object.getX();}
-        else {return object.getX1();}
+        if(this.centered) {return object.x();}
+        else {return object.x1();}
     }
     private double objectY() {
-        if(this.centered) {return object.getY();}
-        else {return object.getY1();}
+        if(this.centered) {return object.y();}
+        else {return object.y1();}
     }
     public double x() {
         return objectX() + relX;

@@ -9,8 +9,8 @@ public class DragManager {
     double relY = 0;
     public void startDragging(BaseObject object) {
         this.object = object;
-        this.relX = object.getX() - Mouse.relMousePosX(object.getScreen());
-        this.relY = object.getY() - Mouse.relMousePosY(object.getScreen());
+        this.relX = object.x() - Mouse.relMousePosX(object.getScreen());
+        this.relY = object.y() - Mouse.relMousePosY(object.getScreen());
     }
     public void tick() {
         if(!Mouse.leftHeld()) {

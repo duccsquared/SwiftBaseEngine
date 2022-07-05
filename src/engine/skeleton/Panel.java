@@ -27,9 +27,10 @@ public abstract class Panel extends JPanel implements ActionListener {
         timer = new Timer(DELAY, this);
         timer.start();
     }
+    public int getDELAY() {return DELAY;}
+    public double getMaxFPS() {return 1000.0/getDELAY();}
     public Cursor getCurrentCursor() {return currentCursor;}
     public void setCurrentCursor(Cursor currentCursor) {this.currentCursor = currentCursor;}
-
     public abstract void start();
     public void registerScreen(BaseScreen screen) {screenHash.put(screen.getId(),screen);}
     public BaseScreen getCurrentScreen() {return currentScreen;}

@@ -1,6 +1,5 @@
 package engine.objects.slider;
 
-import engine.objects.BaseObject;
 import engine.objects.ConcreteSprite;
 import engine.objects.Sprite;
 import engine.screens.Screen;
@@ -20,15 +19,15 @@ public class Slider extends Sprite {
         this.init(0,0,0,0,0,0,minVal,maxVal,(minVal+maxVal)/2,interval);
     }
     public void init(int r, int g, int b, int borderR, int borderG, int borderB, double minVal, double maxVal,double defaultValue, double interval) {
-        double thickness = this.getHeight()/2;
-        double endMarkerY1 = this.getY1() - thickness;
-        double endMarkerY2 = this.getY2() + thickness;
-        this.addChild(new ConcreteSprite(this.getScreen(),r,g,b,borderR,borderG,borderB,this.getX1(),endMarkerY1,this.getX1()+thickness,endMarkerY2));
-        this.addChild(new ConcreteSprite(this.getScreen(),r,g,b,borderR,borderG,borderB,this.getX2()-thickness,endMarkerY1,this.getX2(),endMarkerY2));
+        double thickness = this.height()/2;
+        double endMarkerY1 = this.y1() - thickness;
+        double endMarkerY2 = this.y2() + thickness;
+        this.addChild(new ConcreteSprite(this.getScreen(),r,g,b,borderR,borderG,borderB,this.x1(),endMarkerY1,this.x1()+thickness,endMarkerY2));
+        this.addChild(new ConcreteSprite(this.getScreen(),r,g,b,borderR,borderG,borderB,this.x2()-thickness,endMarkerY1,this.x2(),endMarkerY2));
         this.minVal = minVal;
         this.maxVal = maxVal;
         this.interval = interval;
-        sliderNotch = new SliderNotch(this.getScreen(),this,defaultValue,r,g,b,borderR,borderG,borderB,this.getX()-thickness,endMarkerY1,this.getX()+thickness,endMarkerY2);
+        sliderNotch = new SliderNotch(this.getScreen(),this,defaultValue,r,g,b,borderR,borderG,borderB,this.x()-thickness,endMarkerY1,this.x()+thickness,endMarkerY2);
         this.addChild(sliderNotch);
         this.setFixedPos(true);
 
@@ -39,12 +38,12 @@ public class Slider extends Sprite {
     public double getInterval() {return interval;}
     public SliderNotch getSliderNotch() {return sliderNotch;}
     public double value() {
-        double ratio = (sliderNotch.getX() - this.getX1())/ this.getWidth();
+        double ratio = (sliderNotch.x() - this.x1())/ this.width();
         return BaseGlobal.clearFloatingPointRoundingError(this.getMinVal() + ratio * this.getMaxVal());
     }
     public void setValue(double value) {
         value = BaseGlobal.limitMinMax(value,minVal,maxVal);
         double ratio = (value - minVal)/(maxVal - minVal);
-        sliderNotch.setX(this.getX1() + ratio * this.getWidth());
+        sliderNotch.setX(this.x1() + ratio * this.width());
     }
 }

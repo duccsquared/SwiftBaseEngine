@@ -1,6 +1,8 @@
 package engine.utils;
 
 
+import engine.skeleton.App;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -137,4 +139,6 @@ public class BaseGlobal {
     public static double radToDeg(double rad) {
         return rad/Math.PI * 180;
     }
+    public static double secondsToTicks(double seconds) {return seconds * App.getInstance().getPanel().getMaxFPS();}
+    public static double ticksToSeconds(double ticks) {return ticks / App.getInstance().getPanel().getMaxFPS();}
 }

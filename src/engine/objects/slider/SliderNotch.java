@@ -19,8 +19,8 @@ public class SliderNotch extends Sprite {
     @Override
     public void onDrag() {
         super.onDrag();
-        this.setX(BaseGlobal.limitMinMax(this.getX(), slider.getX1(), slider.getX2()));
-        this.setY(slider.getY());
+        this.setX(BaseGlobal.limitMinMax(this.x(), slider.x1(), slider.x2()));
+        this.setY(slider.y());
         this.setValue(BaseGlobal.roundTo(value(), slider.getInterval()));
     }
     public double value() {

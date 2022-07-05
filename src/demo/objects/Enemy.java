@@ -31,12 +31,12 @@ public class Enemy extends Sprite {
     @Override
     public void tick() {
         super.tick();
-        double dist = Global.distance(this.getX(),this.getY(),targetX,targetY);
+        double dist = Global.distance(this.x(),this.y(),targetX,targetY);
         if(dist<30 || Global.randRange(0,1)<0.005) {
             speed = Global.randRange(1.5,2.5);
             targetX = Global.randInt(-200,800);
             targetY = Global.randInt(-200,800);
-            double[] dirCoor = Global.dirToCoor(Global.coorToDir(this.getX(),this.getY(),targetX,targetY));
+            double[] dirCoor = Global.dirToCoor(Global.coorToDir(this.x(),this.y(),targetX,targetY));
             speedX = dirCoor[0] * speed;
             speedY = dirCoor[1] * speed;
         }

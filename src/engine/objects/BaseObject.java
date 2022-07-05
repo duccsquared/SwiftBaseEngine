@@ -33,39 +33,40 @@ public abstract class BaseObject {
     }
     public boolean isFixedPos() {return fixedPos;}
     public Screen getScreen() {return screen;}
-    public double getX() {return aabb.getX();}
-    public double getY() {return aabb.getY();}
-    public double getX1() {return aabb.getX1();}
-    public double getY1() {return aabb.getY1();}
-    public double getX2() {return aabb.getX2();}
-    public double getY2() {return aabb.getY2();}
-    public double getWidth() {return aabb.getWidth();}
-    public double getHeight() {return aabb.getHeight();}
+    public double x() {return aabb.x();}
+    public double y() {return aabb.y();}
+    public double x1() {return aabb.x1();}
+    public double y1() {return aabb.y1();}
+    public double x2() {return aabb.x2();}
+    public double y2() {return aabb.y2();}
+    public double width() {return aabb.width();}
+    public double height() {return aabb.height();}
     public double getAngle() {return angle;}
     public double getAbsX1() {
         double x1;
-        if(fixedPos) {x1 = this.getX1();}
-        else {x1 = this.getX1() - screen.windowX();}
+        if(fixedPos) {x1 = this.x1();}
+        else {x1 = this.x1() - screen.windowX();}
         if(screen instanceof SubScreen) {
-            x1 += ((SubScreen) screen).getX1();
+            x1 += ((SubScreen) screen).x1();
         }
         return x1;
     }
     public double getAbsY1() {
         double y1;
-        if(fixedPos) {y1 = this.getY1();}
-        else {y1 = this.getY1() - screen.windowY();}
+        if(fixedPos) {y1 = this.y1();}
+        else {y1 = this.y1() - screen.windowY();}
         if(screen instanceof SubScreen) {
-            y1 += ((SubScreen) screen).getY1();
+            y1 += ((SubScreen) screen).y1();
         }
         return y1;
     }
     public double getAbsX2() {
-        return getAbsX1() + this.getWidth();
+        return getAbsX1() + this.width();
     }
     public double getAbsY2() {
-        return getAbsY1() + this.getHeight();
+        return getAbsY1() + this.height();
     }
+    public DrawHandler getDrawHandler() {return drawHandler;}
     public boolean isVisible() {return visible;}
     public boolean isFixChildrenAngleToParent() {
         return fixChildrenAngleToParent;
@@ -90,11 +91,11 @@ public abstract class BaseObject {
         for(BaseObject child : this.childList) {child.setFixedPos(true);}
     }
     public void setX(double x) {
-        for(BaseObject child : this.childList) {child.moveX(x-this.getX());}
+        for(BaseObject child : this.childList) {child.moveX(x-this.x());}
         aabb.setX(x);
     }
     public void setY(double y) {
-        for(BaseObject child : this.childList) {child.moveY(y-this.getY());}
+        for(BaseObject child : this.childList) {child.moveY(y-this.y());}
         aabb.setY(y);
     }
     public void setX1(double x1) {aabb.setX1(x1);}
@@ -103,19 +104,19 @@ public abstract class BaseObject {
     public void setY2(double y2) {aabb.setY2(y2);}
     public void setWidth(double width) {
         for(BaseObject child : this.childList) {
-            double ratio = width/this.getWidth();
-            double newDist = (child.getX() - this.getX()) * ratio;
-            child.setWidth(ratio * child.getWidth());
-            child.setX(this.getX() + newDist);
+            double ratio = width/this.width();
+            double newDist = (child.x() - this.x()) * ratio;
+            child.setWidth(ratio * child.width());
+            child.setX(this.x() + newDist);
         }
         aabb.setWidth(width);
     }
     public void setHeight(double height) {
         for(BaseObject child : this.childList) {
-            double ratio = height/this.getHeight();
-            double newDist = (child.getY() - this.getY()) * ratio;
-            child.setHeight(ratio * child.getHeight());
-            child.setY(this.getY() + newDist);
+            double ratio = height/this.height();
+            double newDist = (child.y() - this.y()) * ratio;
+            child.setHeight(ratio * child.height());
+            child.setY(this.y() + newDist);
         }
         aabb.setHeight(height);
     }
@@ -123,7 +124,7 @@ public abstract class BaseObject {
         if(this.fixChildrenAngleToParent) {
             double angleDiff = angle - this.getAngle();
             for(BaseObject child : this.childList) {
-                double[] coords = BaseGlobal.rotateAroundPoint(child.getX(),child.getY(),this.getX(),this.getY(),angleDiff);
+                double[] coords = BaseGlobal.rotateAroundPoint(child.x(),child.y(),this.x(),this.y(),angleDiff);
                 child.setPos(coords[0],coords[1]);
                 child.changeAngle(angleDiff);
             }
@@ -149,10 +150,10 @@ public abstract class BaseObject {
         this.setY(y);
     }
     public void moveX(double x) {
-        this.setX(this.getX()+x);
+        this.setX(this.x()+x);
     }
     public void moveY(double y) {
-        this.setY(this.getY()+y);
+        this.setY(this.y()+y);
     }
     public void movePos(double x, double y) {
         this.moveX(x);
@@ -197,16 +198,16 @@ public abstract class BaseObject {
         return this.childList.contains(child);
     }
     public boolean intersects(double x, double y) {
-        return x >= this.getX1() && y >= this.getY1() && x <= this.getX2() && y <= this.getY2();
+        return x >= this.x1() && y >= this.y1() && x <= this.x2() && y <= this.y2();
 }
     public boolean intersectsAbs(double x, double y) {
         return x >= this.getAbsX1() && y >= this.getAbsY1() && x <= this.getAbsX2() && y <= this.getAbsY2();
     }
     public boolean intersects(BaseObject baseObject) {
-        return this.getX1() < baseObject.getX2() &&
-                this.getX2() > baseObject.getX1() &&
-                this.getY1() < baseObject.getY2() &&
-                this.getY2() > baseObject.getY1();
+        return this.x1() < baseObject.x2() &&
+                this.x2() > baseObject.x1() &&
+                this.y1() < baseObject.y2() &&
+                this.y2() > baseObject.y1();
     }
     public BaseObject findIntersecting(Class<? extends BaseObject> cls) {
         ArrayList<BaseObject> objectArray = ObjectInstanceManager.getInstance().getArrayList(cls,this.getScreen());
